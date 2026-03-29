@@ -303,6 +303,58 @@
   .place-tag .place-name { font-weight: 600; color: var(--accent); }
   .place-tag .place-detail { font-size: 0.85rem; color: var(--ink-light); }
 
+  /* === COMMENTAIRES === */
+  #commentaires { padding: 3rem 0; }
+  .comment-form-wrap {
+    max-width: 700px;
+    margin: 0 auto;
+    background: #faf8f5;
+    border: 1px solid var(--sepia-dark);
+    border-radius: 12px;
+    padding: 2rem;
+  }
+  .form-row { margin-bottom: 1.2rem; }
+  .form-row label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    color: var(--ink);
+  }
+  .form-row .req { color: #c0392b; }
+  .form-row input[type="text"],
+  .form-row input[type="email"],
+  .form-row select,
+  .form-row textarea {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--sepia-dark);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    background: #fff;
+    color: var(--ink);
+  }
+  .form-row textarea { resize: vertical; }
+  .form-row input:focus,
+  .form-row select:focus,
+  .form-row textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(139,69,19,0.15);
+  }
+  .btn-comment {
+    background: #5a3e2b;
+    color: #fff;
+    border: none;
+    padding: 0.7rem 2rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-comment:hover { background: #7a5a3b; }
+
   /* === FOOTER === */
   footer {
     background: var(--ink);
@@ -625,6 +677,7 @@
   <a href="#extraits">Extraits</a>
   <a href="#lieux">Lieux</a>
   <a href="#catalogue">Catalogue</a>
+  <a href="#commentaires">Commentaires</a>
 </nav>
 
 <!-- INTRODUCTION -->
@@ -919,13 +972,17 @@
 <section id="catalogue">
   <div class="container">
     <h2>Catalogue des cartes</h2>
-    <p>Parcourez les 201 cartes de la collection. Cliquez sur une carte pour voir l'image et la transcription complète.</p>
+    <p>Parcourez les cartes de la collection. Cliquez sur une carte pour voir l'image et la transcription complète.</p>
 
     <!-- FILTRES -->
     <div class="catalog-filters">
       <input type="text" id="search-input" placeholder="Rechercher (expéditeur, texte, lieu...)" />
       <select id="sender-filter">
         <option value="">Tous les expéditeurs</option>
+      </select>
+      <select id="sort-order">
+        <option value="chrono">Ordre chronologique</option>
+        <option value="numero">Ordre numérique (#)</option>
       </select>
       <div class="filter-stats" id="filter-stats"></div>
     </div>
@@ -985,9 +1042,57 @@
   </div>
 </div>
 
-<!-- FOOTER -->
+<!-- COMMENTAIRES -->
+<section id="commentaires">
+  <div class="container">
+    <h2>Commentaires &amp; corrections</h2>
+    <p style="margin-bottom: 1.5rem; color: var(--ink-light);">Vous reconnaissez un lieu, une personne, une écriture ? Vous avez une correction à proposer sur une transcription ? N'hésitez pas à laisser un message.</p>
+    <div class="comment-form-wrap">
+      <form action="https://formspree.io/f/xpqopodl" method="POST">
+        <input type="hidden" name="_subject" value="Nouveau commentaire — Cartes Boulay">
+        <input type="text" name="_gotcha" style="display:none">
+
+        <div class="form-row">
+          <label for="cf-nom">Nom <span class="req">*</span></label>
+          <input type="text" id="cf-nom" name="nom" required placeholder="Votre nom">
+        </div>
+
+        <div class="form-row">
+          <label for="cf-email">Email <span class="req">*</span></label>
+          <input type="email" id="cf-email" name="_replyto" required placeholder="votre@email.com">
+        </div>
+
+        <div class="form-row">
+          <label for="cf-sujet">Sujet</label>
+          <select id="cf-sujet" name="sujet">
+            <option value="">— Choisir —</option>
+            <option value="genealogie">Généalogie</option>
+            <option value="personnage">Personnage</option>
+            <option value="lieu">Lieu</option>
+            <option value="date">Date</option>
+            <option value="transcription">Transcription</option>
+            <option value="autre">Autre</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label for="cf-carte">Numéro de carte (optionnel)</label>
+          <input type="text" id="cf-carte" name="numero_carte" placeholder="ex. 42">
+        </div>
+
+        <div class="form-row">
+          <label for="cf-message">Commentaire <span class="req">*</span></label>
+          <textarea id="cf-message" name="commentaire" required rows="5" placeholder="Votre message..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-comment">Envoyer</button>
+      </form>
+    </div>
+  </div>
+</section>
+
 <footer>
-  <p>Collection Augusta Boulay — 201 cartes postales familiales (1910-1940)</p>
+  <p>Collection Augusta Boulay — 206 cartes postales familiales (1910-1940)</p>
   <p>Numérisées et transcrites par Krishna Naudin · Analyse assistée par IA (Claude & Gemini)</p>
   <p style="margin-top: 0.5rem; opacity: 0.6;">Dernière mise à jour : mars 2026</p>
   <p style="margin-top: 0.5rem; opacity: 0.6;">Contact : <span id="ct"></span></p>
@@ -1031,9 +1136,12 @@ Object.entries(senderCounts)
 
 const MONTHS_FR = {janvier:0,fevrier:1,mars:2,avril:3,mai:4,juin:5,juillet:6,aout:7,septembre:8,sept:8,octobre:9,novembre:10,decembre:11,'7bre':8,'8bre':9,'9bre':10,'xbre':11};
 function parseCardDate(s) {
-  if (!s || !s.trim()) return null;
+  if (!s || !s.trim() || s === 'inconnu') return null;
   const low = s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/1er/g, '1').replace(/[.,]/g, ' ').trim();
   let m;
+  // ISO date: 1910-10-27
+  m = low.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (m) return Date.UTC(+m[1], +m[2]-1, +m[3]);
   // Parenthesized clarification: "1/8/11 (1er août 1911)" → use the part in parens
   const paren = low.match(/\(([^)]+)\)/);
   if (paren) { const r = parseCardDate(paren[1]); if (r) return r; }
@@ -1049,8 +1157,8 @@ function parseCardDate(s) {
   // Short year: "14 7bre 23" → 1923
   m = low.match(/(\d{1,2})\s+([a-z7-9x]+)\s+(\d{2})(?:\s|$)/);
   if (m && MONTHS_FR[m[2]] !== undefined) { const y = +m[3] + 1900; return Date.UTC(y, MONTHS_FR[m[2]], +m[1]); }
-  // DD/MM/YY or DD-MM-YY: 16/9/31 → 1931-09-16, 21-8-27 → 1927-08-21
-  m = low.match(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})/);
+  // DD/MM/YY or DD-MM-YY (NOT ISO): 16/9/31 → 1931-09-16
+  m = low.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/);
   if (m) { let y = +m[3]; if (y < 100) y += 1900; return Date.UTC(y, +m[2]-1, +m[1]); }
   // Month + year: juillet 1911
   m = low.match(/([a-zéûà7-9x]+)\s+(\d{4})/);
@@ -1083,15 +1191,20 @@ function applyFilters() {
     return true;
   });
 
-  // Sort by date (undated cards at the end)
-  filteredCards.sort((a, b) => {
-    const da = parseCardDate(a.date);
-    const db = parseCardDate(b.date);
-    if (da === null && db === null) return a.n - b.n;
-    if (da === null) return 1;
-    if (db === null) return -1;
-    return da - db || a.n - b.n;
-  });
+  // Sort based on user selection
+  const sortMode = document.getElementById('sort-order').value;
+  if (sortMode === 'chrono') {
+    filteredCards.sort((a, b) => {
+      const da = parseCardDate(a.date);
+      const db = parseCardDate(b.date);
+      if (da === null && db === null) return a.n - b.n;
+      if (da === null) return 1;
+      if (db === null) return -1;
+      return da - db || a.n - b.n;
+    });
+  } else {
+    filteredCards.sort((a, b) => a.n - b.n);
+  }
 
   currentPage = 1;
   renderCatalog();
@@ -1216,6 +1329,7 @@ document.addEventListener('keydown', e => {
 // Event listeners
 document.getElementById('search-input').addEventListener('input', debounce(applyFilters, 300));
 document.getElementById('sender-filter').addEventListener('change', applyFilters);
+document.getElementById('sort-order').addEventListener('change', applyFilters);
 
 function debounce(fn, ms) {
   let t;
