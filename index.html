@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Collection Augusta Boulay — Cartes Postales 1910-1940</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap');
+
+  :root {
+    --sepia: #f5f0e8;
+    --sepia-dark: #e8dfd0;
+    --ink: #2c2417;
+    --ink-light: #5a4d3a;
+    --accent: #8b4513;
+    --accent-light: #c4956a;
+    --blue-link: #4a6fa5;
+    --card-bg: #fffdf7;
+    --shadow: rgba(44, 36, 23, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  .wip-banner {
+    background: #d4a017;
+    color: #2c2417;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  body {
+    font-family: 'Source Sans 3', 'Georgia', serif;
+    background: var(--sepia);
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  /* === HERO === */
+  .hero {
+    background: linear-gradient(135deg, #3d2b1f 0%, #5c3d2e 50%, #2c2417 100%);
+    color: var(--sepia);
+    padding: 4rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.5;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    position: relative;
+  }
+  .hero .subtitle {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    opacity: 0.85;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  .hero .stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .stat { text-align: center; }
+  .stat .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    display: block;
+    color: var(--accent-light);
+  }
+  .stat .label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.7; }
+
+  /* === NAV === */
+  nav {
+    background: var(--ink);
+    padding: 0.8rem 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  nav a {
+    color: var(--sepia-dark);
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--accent-light); }
+
+  /* === SECTIONS === */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+
+  section {
+    padding: 3.5rem 0;
+  }
+  section:nth-child(even) { background: var(--card-bg); }
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--sepia-dark);
+  }
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--ink);
+    margin: 1.5rem 0 0.8rem;
+  }
+  p { margin-bottom: 1rem; max-width: 75ch; }
+
+  /* === TREE === */
+  .family-tree {
+    background: var(--card-bg);
+    border: 1px solid var(--sepia-dark);
+    border-radius: 8px;
+    padding: 2rem;
+    font-family: 'Source Sans 3', sans-serif;
+    overflow-x: auto;
+    box-shadow: 0 2px 12px var(--shadow);
+  }
+  .tree-level { margin-left: 2rem; border-left: 2px solid var(--accent-light); padding-left: 1.5rem; margin-top: 0.5rem; }
+  .tree-person {
+    padding: 0.4rem 0;
+    position: relative;
+  }
+  .tree-person::before {
+    content: '';
+    position: absolute;
+    left: -1.5rem;
+    top: 50%;
+    width: 1.2rem;
+    height: 2px;
+    background: var(--accent-light);
+  }
+  .tree-name { font-weight: 600; color: var(--ink); }
+  .tree-dates { color: var(--ink-light); font-size: 0.9rem; }
+  .tree-role { font-style: italic; color: var(--accent); font-size: 0.85rem; }
+  .tree-root { font-size: 1.1rem; font-weight: 700; border-left: none; margin-left: 0; padding-left: 0; }
+  .tree-root::before { display: none; }
+  .tree-marriage {
+    display: inline-block;
+    background: var(--sepia-dark);
+    padding: 0.15rem 0.6rem;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    color: var(--ink-light);
+    margin: 0.3rem 0;
+  }
+
+  /* === PERSONNAGES === */
+  .person-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  .person-card {
+    background: var(--card-bg);
+    border: 1px solid var(--sepia-dark);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+  }
+  .person-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px var(--shadow); }
+  .person-card .name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+  }
+  .person-card .meta {
+    font-size: 0.85rem;
+    color: var(--ink-light);
+    margin-bottom: 0.8rem;
+  }
+  .person-card .badge {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    padding: 0.15rem 0.5rem;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .person-card .bio { font-size: 0.95rem; line-height: 1.6; }
+
+  /* === TIMELINE === */
+  .timeline { position: relative; margin: 2rem 0; padding-left: 2.5rem; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.75rem;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--accent), var(--accent-light), var(--sepia-dark));
+    border-radius: 2px;
+  }
+  .tl-item { position: relative; margin-bottom: 2rem; }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -2.05rem;
+    top: 0.4rem;
+    width: 12px;
+    height: 12px;
+    background: var(--accent);
+    border: 3px solid var(--sepia);
+    border-radius: 50%;
+  }
+  .tl-year {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .tl-text { font-size: 0.95rem; color: var(--ink-light); margin-top: 0.2rem; }
+
+  /* === CARTE EXEMPLE === */
+  .card-sample {
+    background: var(--card-bg);
+    border: 1px solid var(--sepia-dark);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    box-shadow: 0 2px 8px var(--shadow);
+    position: relative;
+  }
+  .card-sample::before {
+    content: '✉';
+    position: absolute;
+    top: -0.5rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    opacity: 0.3;
+  }
+  .card-sample .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .card-sample .card-num {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .card-sample .card-sender { font-weight: 600; }
+  .card-sample .card-context { font-size: 0.8rem; color: var(--ink-light); }
+  .card-sample blockquote {
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+    color: var(--ink-light);
+    border-left: 3px solid var(--accent-light);
+    padding: 0.8rem 1.2rem;
+    margin: 0.5rem 0;
+    background: rgba(139, 69, 19, 0.03);
+    border-radius: 0 4px 4px 0;
+    line-height: 1.8;
+  }
+
+  /* === MAP SECTION === */
+  .places-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .place-tag {
+    background: var(--card-bg);
+    border: 1px solid var(--sepia-dark);
+    border-radius: 6px;
+    padding: 0.8rem 1rem;
+    box-shadow: 0 1px 4px var(--shadow);
+  }
+  .place-tag .place-name { font-weight: 600; color: var(--accent); }
+  .place-tag .place-detail { font-size: 0.85rem; color: var(--ink-light); }
+
+  /* === FOOTER === */
+  footer {
+    background: var(--ink);
+    color: var(--sepia-dark);
+    padding: 2rem;
+    text-align: center;
+    font-size: 0.85rem;
+  }
+  footer a { color: var(--accent-light); }
+
+  /* === CATALOG === */
+  .catalog-filters {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  #search-input {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--sepia-dark);
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--card-bg);
+    color: var(--ink);
+  }
+  #search-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(139,69,19,0.15); }
+  #sender-filter {
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--sepia-dark);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--card-bg);
+    color: var(--ink);
+    max-width: 300px;
+  }
+  .filter-stats { font-size: 0.85rem; color: var(--ink-light); white-space: nowrap; }
+
+  .catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+  .cat-card {
+    background: var(--card-bg);
+    border: 1px solid var(--sepia-dark);
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 1px 4px var(--shadow);
+  }
+  .cat-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px var(--shadow); }
+  .cat-thumb {
+    height: 140px;
+    overflow: hidden;
+    background: var(--sepia-dark);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cat-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+  }
+  .cat-card:hover .cat-thumb img { transform: scale(1.05); }
+  .cat-num {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    background: rgba(44, 36, 23, 0.8);
+    color: var(--sepia);
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+  .cat-info { padding: 0.8rem; }
+  .cat-sender { font-weight: 600; color: var(--ink); font-size: 0.9rem; margin-bottom: 0.2rem; }
+  .cat-date { font-size: 0.8rem; color: var(--accent); margin-bottom: 0.3rem; }
+  .cat-preview { font-size: 0.82rem; color: var(--ink-light); line-height: 1.4; }
+
+  .catalog-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+  .catalog-pagination button {
+    padding: 0.4rem 0.8rem;
+    border: 1px solid var(--sepia-dark);
+    background: var(--card-bg);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--ink);
+    font-family: 'Source Sans 3', sans-serif;
+  }
+  .catalog-pagination button:hover { background: var(--sepia-dark); }
+  .catalog-pagination button.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+  .pag-dots { padding: 0 0.3rem; color: var(--ink-light); }
+
+  /* === LIGHTBOX === */
+  .lightbox {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 1000;
+  }
+  .lightbox.open { display: flex; align-items: center; justify-content: center; }
+  .lightbox-backdrop {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.7);
+  }
+  .lightbox-content {
+    position: relative;
+    background: var(--card-bg);
+    border-radius: 12px;
+    width: 95vw;
+    max-width: 1100px;
+    max-height: 92vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    z-index: 1;
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 0.8rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--ink-light);
+    cursor: pointer;
+    z-index: 2;
+    line-height: 1;
+  }
+  .lightbox-close:hover { color: var(--accent); }
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    left: 0; right: 0;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 2;
+    padding: 0 0.5rem;
+    transform: translateY(-50%);
+  }
+  .lb-prev, .lb-next {
+    pointer-events: auto;
+    background: rgba(44,36,23,0.7);
+    color: white;
+    border: none;
+    font-size: 1.5rem;
+    padding: 0.8rem 1rem;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .lb-prev:hover, .lb-next:hover { background: var(--accent); }
+  .lightbox-header {
+    padding: 1.2rem 1.5rem 0.5rem;
+    border-bottom: 1px solid var(--sepia-dark);
+  }
+  .lb-card-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .lightbox-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    min-height: 400px;
+  }
+  .lightbox-images {
+    border-right: 1px solid var(--sepia-dark);
+    display: flex;
+    flex-direction: column;
+  }
+  .lb-img-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--sepia-dark);
+  }
+  .lb-tab {
+    flex: 1;
+    padding: 0.6rem;
+    border: none;
+    background: var(--sepia);
+    cursor: pointer;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.9rem;
+    color: var(--ink-light);
+    transition: all 0.2s;
+  }
+  .lb-tab.active { background: var(--card-bg); color: var(--accent); font-weight: 600; border-bottom: 2px solid var(--accent); }
+  .lb-img-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: var(--sepia-dark);
+    min-height: 350px;
+    position: relative;
+    cursor: zoom-in;
+  }
+  #lb-image {
+    max-width: 100%;
+    max-height: 60vh;
+    object-fit: contain;
+    transition: transform 0.3s;
+  }
+  #lb-image.zoomed {
+    max-width: none;
+    max-height: none;
+    transform: scale(2);
+    cursor: zoom-out;
+  }
+  .lb-img-zoom-hint {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.5rem;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    opacity: 0.7;
+  }
+  .lightbox-text {
+    padding: 1.2rem 1.5rem;
+    overflow-y: auto;
+    max-height: 70vh;
+  }
+  .lb-section { margin-bottom: 1rem; }
+  .lb-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+  .lb-value { font-size: 0.95rem; color: var(--ink); }
+  .lb-transcription {
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--ink);
+    background: rgba(139,69,19,0.03);
+    padding: 1rem;
+    border-left: 3px solid var(--accent-light);
+    border-radius: 0 4px 4px 0;
+    max-height: 40vh;
+    overflow-y: auto;
+  }
+  .lb-notes {
+    font-size: 0.85rem;
+    color: var(--ink-light);
+    font-style: italic;
+  }
+
+  @media (max-width: 768px) {
+    .lightbox-body { grid-template-columns: 1fr; }
+    .lightbox-images { border-right: none; border-bottom: 1px solid var(--sepia-dark); }
+    .lightbox-nav { display: none; }
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 600px) {
+    .hero { padding: 2.5rem 1rem; }
+    .hero .stats-bar { gap: 1.5rem; }
+    .stat .num { font-size: 1.8rem; }
+    .person-grid { grid-template-columns: 1fr; }
+    .tree-level { margin-left: 1rem; padding-left: 1rem; }
+    nav { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- BANDEAU TRAVAIL EN COURS -->
+<div class="wip-banner">Ce site est un travail en cours — les transcriptions et identifications sont progressivement corrigées et enrichies.</div>
+
+<!-- HERO -->
+<header class="hero">
+  <h1>Collection Augusta Boulay</h1>
+  <p class="subtitle">Cartes postales familiales — Craon, Mayenne — 1910 à 1940</p>
+  <div class="stats-bar">
+    <div class="stat"><span class="num">149</span><span class="label">Cartes postales</span></div>
+    <div class="stat"><span class="num">30</span><span class="label">Années couvertes</span></div>
+    <div class="stat"><span class="num">50+</span><span class="label">Correspondants</span></div>
+    <div class="stat"><span class="num">3</span><span class="label">Générations</span></div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav>
+  <a href="#introduction">Introduction</a>
+  <a href="#arbre">Arbre familial</a>
+  <a href="#personnages">Personnages</a>
+  <a href="#chronologie">Chronologie</a>
+  <a href="#extraits">Extraits</a>
+  <a href="#lieux">Lieux</a>
+  <a href="#catalogue">Catalogue</a>
+</nav>
+
+<!-- INTRODUCTION -->
+<section id="introduction">
+  <div class="container">
+    <h2>Une enfance et une adolescence en cartes postales</h2>
+    <p>Cette collection de 149 cartes postales raconte l'histoire d'<strong>Augusta Marie Emilia Boulay</strong> (1907–1993), née à Craon en Mayenne, à travers trente années de correspondance familiale. Du monde de l'enfance pré-1914 au mariage en 1931, ces cartes témoignent de la vie d'une famille de la petite bourgeoisie provinciale française face aux grands événements du XXe siècle.</p>
+
+    <p>Augusta grandit auprès de ses parents, Auguste Alexandre Camille Joseph Boulay (1878–1940), dirigeant d'ateliers de constructions mécaniques et d'une usine électrique à Craon, et Émilie Pauline Legros (1883–1925). Sa sœur cadette, Émilie (« Mimi »), et un réseau affectif dense — tantes, cousins, domestique attachée Maria — constituent son univers familial immédiat.</p>
+
+    <p>Les cartes de 1910–1914 respirent l'insouciance et l'ordre d'une petite ville : vœux échangés, visite de lieux éducatifs (pensionnats), séjours de vacances. La Première Guerre mondiale marque un tournant dramatique. À sept ans, en 1914, Augusta écrit à son père absent du front, le remerciant de ses lettres, lui rapportant ses résultats scolaires, lui exprimant l'espoir que « la guerre finisse bientôt ». Le ton révèle une enfant consciente, pieuse, et profondément marquée par l'absence paternelle.</p>
+
+    <p>L'après-guerre et les années 1920 correspondent à son adolescence : pensions et établissements scolaires (Laval, Angers), amitiés de jeunes filles, et une France de mobilités retrouvées (Paris, Versailles, côte Atlantique, provinces). Cette époque est assombrie par une fragilité familiale majeure : l'inquiétude autour de la santé maternelle, puis le décès d'Émilie en 1925, moment charnière qui précipite Augusta dans l'âge adulte.</p>
+
+    <p>Au début des années 1930, Augusta devient « Madame Lemonnier » après son mariage avec Guy Michel Albert Lemonnier en 1931. Les dernières cartes de la collection (1931–1936) témoignent d'une vie mariée, avec voyages en Europe (Vatican, Florence) dans une période où l'arrière-plan politique se tend. Le décès du père en 1940 coïncide avec l'effondrement de la France et l'Occupation.</p>
+  </div>
+</section>
+
+<!-- ARBRE FAMILIAL -->
+<section id="arbre">
+  <div class="container">
+    <h2>L'arbre familial</h2>
+    <div class="family-tree">
+
+      <div class="tree-root tree-person">
+        <span class="tree-name">François Boulay</span>
+        <span class="tree-dates"> — 1807-1877</span>
+        <span class="tree-role"> — fondateur, ateliers de constructions mécaniques</span>
+      </div>
+
+      <div class="tree-level">
+
+        <div class="tree-person">
+          <span class="tree-name">François Alexandre Boulay</span>
+          <span class="tree-dates"> — 1842-1915</span>
+          <span class="tree-role"> — mécanicien, père d'Auguste</span>
+          <br><span class="tree-marriage">× Marie Zoé Mignot (1844-1892)</span>
+
+          <div class="tree-level">
+            <div class="tree-person">
+              <span class="tree-name">Auguste Alexandre Camille Joseph Boulay</span>
+              <span class="tree-dates"> — 1878-1940 (†61 ans)</span>
+              <span class="tree-role"> — père d'Augusta et Émilie</span>
+              <br><span class="tree-marriage">× Émilie Pauline Legros (1883-1925)</span>
+
+              <div class="tree-level">
+                <div class="tree-person">
+                  <span class="tree-name">Augusta Marie Emilia Francine Boulay</span>
+                  <span class="tree-dates"> — 1907-1993 (†86 ans)</span>
+                  <span class="tree-role"> — destinataire principale de la collection</span>
+                  <br><span class="tree-marriage">× Guy Michel Albert Lemonnier (1903-1979) — mariage 9 nov. 1931</span>
+
+                  <div class="tree-level">
+                    <div class="tree-person">
+                      <span class="tree-name">Anne Marie Lemonnier</span>
+                      <span class="tree-dates"> — fille d'Augusta et Guy</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tree-person">
+                  <span class="tree-name">Émilie (« Mimi ») Pauline Boulay</span>
+                  <span class="tree-dates"> — ~1910-? (†sœur cadette)</span>
+                  <span class="tree-role"> — sœur d'Augusta</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="tree-person" style="margin-top: 1.5rem;">
+              <span class="tree-name">Marie Boulay</span>
+              <span class="tree-dates"> — ~1874-1960 (†sœur d'Auguste)</span>
+              <span class="tree-role"> — célibataire, habitait route de Château-Gontier</span>
+            </div>
+
+            <div class="tree-person">
+              <span class="tree-name">Berthe Marie Augustine Boulay</span>
+              <span class="tree-dates"> — née 22 juin 1885</span>
+              <span class="tree-role"> — tante d'Augusta</span>
+            </div>
+
+            <div class="tree-person">
+              <span class="tree-name">Aurélie Marie Françoise Boulay</span>
+              <span class="tree-dates"> — née 11 fév 1890</span>
+              <span class="tree-role"> — tante d'Augusta</span>
+            </div>
+
+            <div class="tree-person">
+              <span class="tree-name">Fernande Marie Emilienne Boulay</span>
+              <span class="tree-dates"> — née 24 juillet 1892</span>
+              <span class="tree-role"> — tante d'Augusta</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="tree-person" style="margin-top: 1.5rem;">
+          <span class="tree-name">Marie Désirée Boulay</span>
+          <span class="tree-dates"> — 1852-1933 (†grand-tante)</span>
+          <span class="tree-role"> — sœur de François Alexandre, grand-mère d'Augusta</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONNAGES -->
+<section id="personnages">
+  <div class="container">
+    <h2>Les personnages principaux</h2>
+    <p>Voici les correspondants majeurs qui animent cette collection.</p>
+
+    <div class="person-grid">
+
+      <div class="person-card">
+        <div class="name">Augusta Boulay (Lemonnier)</div>
+        <div class="meta">1907-1993 (†86 ans) · Craon · <span class="badge">Destinataire</span></div>
+        <div class="bio">Née à Craon (Mayenne) en 1907, elle grandit dans une petite ville de province où règnent l'ordre des usages familiaux, l'école et la piété. À sept ans, elle écrit à son père absent du front. À quinze ans, elle doit affronter le décès de sa mère. Elle épouse Guy Michel Albert Lemonnier en 1931 et vit jusqu'à 1993.</div>
+      </div>
+
+      <div class="person-card">
+        <div class="name">Auguste Boulay (père)</div>
+        <div class="meta">1878-1940 (†61 ans) · Craon · <span class="badge">Expéditeur principal</span></div>
+        <div class="bio">Mécanicien et industriel, fondateur d'ateliers de constructions mécaniques et d'une usine électrique à Craon. Père attentionné, il écrit nombreuses cartes à ses filles durant ses affectations militaires (Bourges, 1915-1916) et ses déplacements professionnels. Décède en 1940.</div>
+      </div>
+
+      <div class="person-card">
+        <div class="name">Émilie Boulay (mère)</div>
+        <div class="meta">1883-1925 (†41 ans) · Craon · <span class="badge">13 cartes</span></div>
+        <div class="bio">Née Legros, elle épouse Auguste et élève deux enfants à Craon. Présente à travers les cartes qui lui sont adressées, elle est aussi auteure de messages tendres à son mari absent. Son décès en 1925, à seulement 41 ans, marque profondément la vie familiale et la jeunesse d'Augusta.</div>
+      </div>
+
+      <div class="person-card">
+        <div class="name">Maria (Marie Guidault)</div>
+        <div class="meta">1875-1962 · Employée de maison · <span class="badge">Très présente</span></div>
+        <div class="bio">Domestique et figure maternelle bienveillante, Maria (Marie Guidault, veuve Guilloux) est très attachée à la famille Boulay. Elle envoie de nombreuses cartes à Auguste au front, lui décrivant la vie à Craon, les enfants, et restant un repère affectif durant des décennies.</div>
+      </div>
+
+      <div class="person-card">
+        <div class="name">Guy Lemonnier</div>
+        <div class="meta">1903-1979 (†75 ans) · Ingénieur · <span class="badge">Mari d'Augusta</span></div>
+        <div class="bio">Fils d'Eulalie Décré et Michel Lemonnier, ingénieur ingénieur ENSAM, Guy épouse Augusta le 9 novembre 1931 à Craon. Il reprend l'affaire de construction et réparation de machines agricoles de son beau-père et poursuit l'activité jusqu'à sa mort en 1979.</div>
+      </div>
+
+      <div class="person-card">
+        <div class="name">Tante Blu</div>
+        <div class="meta">Nom inconnu · Présente en 1916 · <span class="badge">Affectueuse</span></div>
+        <div class="bio">Tante mystérieuse, très présente dans la correspondance de 1916, elle envoie à Augusta des cartes affectueuses et des vœux. Son vrai nom reste inconnu, mais son lien à la famille est manifeste à travers une correspondance tendre et régulière.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CHRONOLOGIE -->
+<section id="chronologie">
+  <div class="container">
+    <h2>Chronologie familiale</h2>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-year">1807</div>
+        <div class="tl-text">Naissance de François Boulay (grand-père) — futur fondateur des ateliers</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1842</div>
+        <div class="tl-text">Naissance de François Alexandre Boulay</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1869</div>
+        <div class="tl-text">François Boulay fonde les ateliers de constructions mécaniques à Craon</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1878</div>
+        <div class="tl-text">Naissance d'Auguste Alexandre Camille Joseph Boulay (père d'Augusta)</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1883</div>
+        <div class="tl-text">Naissance d'Émilie Pauline Legros (mère d'Augusta)</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1907</div>
+        <div class="tl-text">Naissance d'Augusta Marie Emilia Boulay à Craon (27 mai) — Premières cartes de la collection</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1910</div>
+        <div class="tl-text">Augusta a 3 ans ; les cartes attestent une enfance heureuse à Craon (route de Château-Gontier)</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1914-1918</div>
+        <div class="tl-text">Grande Guerre — Auguste mobilisé ; Augusta (7-11 ans) écrit à son père absent, exprime ses peurs et son amour filial</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1915-1916</div>
+        <div class="tl-text">Auguste affecté à Bourges ; les cartes montrent une enfance marquée par l'absence et la prière</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1918</div>
+        <div class="tl-text">Fin de la Première Guerre ; Auguste revient, Augusta a 11 ans</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1920-1924</div>
+        <div class="tl-text">Adolescence : pensions (Laval, Angers), amitiés de jeunes filles, voyages (Versailles, Paris, Le Mans)</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1925</div>
+        <div class="tl-text">Décès d'Émilie Boulay (mère) — charnière majeure dans la vie d'Augusta ; elle a 18 ans</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1931</div>
+        <div class="tl-text">Mariage d'Augusta (24 ans) avec Guy Michel Albert Lemonnier (28 ans) à Craon, 9 novembre</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1932-1936</div>
+        <div class="tl-text">Vie mariée : voyages (Vatican 1932, Florence 1936) ; Europe en tension politique</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">1940</div>
+        <div class="tl-text">Décès d'Auguste Boulay (père) — coïncide avec l'effondrement de la France et l'Occupation. Fin de la collection.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXTRAITS -->
+<section id="extraits">
+  <div class="container">
+    <h2>Extraits de correspondance</h2>
+    <p>Quelques cartes qui font revivre les voix de cette famille.</p>
+
+    <div class="card-sample">
+      <div class="card-header">
+        <span class="card-num">Carte n° 7</span>
+        <span class="card-sender">Augusta Boulay</span>
+        <span class="card-context">Craon, 4 novembre 1914</span>
+      </div>
+      <blockquote>« Cher Papa, J'ai reçu ta lettre et je suis très contente. Tu es bon papa puisque tu as dit à maman qu'elle nous achète des beaux parapluies pour le dimanche et mette autres pour la semaine. Je te remercie bien. On a été un petit peu sage chez nous et notre institutrice est contente de nous cette semaine, elle te remercie de ton bon souvenir et te souhaite santé courage et heureux retour. Je t'embrasse tendrement. Ta petite fille qui t'aime, Augusta Boulay »</blockquote>
+    </div>
+
+    <div class="card-sample">
+      <div class="card-header">
+        <span class="card-num">Carte n° 8</span>
+        <span class="card-sender">Augusta Boulay</span>
+        <span class="card-context">Craon, 14 novembre 1914</span>
+      </div>
+      <blockquote>« Cher Papa, Je te remercie de ta lettre que tu m'as envoyée. Ça m'a fait bien plaisir. J'ai une belle grammaire et une belle géographie de la Mayenne et j'apprends mieux mes leçons. Cette semaine j'ai eu souvent 5 et tous les autres jours 4 ½ excepté lundi. Je t'embrasse de tout mon cœur. Ta petite fille qui t'aime, Augusta Boulay »</blockquote>
+    </div>
+
+    <div class="card-sample">
+      <div class="card-header">
+        <span class="card-num">Carte n° 14</span>
+        <span class="card-sender">Auguste Boulay (père)</span>
+        <span class="card-context">Montigny, 30 décembre 1914</span>
+      </div>
+      <blockquote>« Chère petite Augusta, Quoique bien loin de vous. Je ne veux pas laisser passer le jour de l'an ma chère petite fille sans venir te souhaiter une bonne et heureuse année, et espère que tu seras travailleuse gentille et respectueuse avec tous. J'aurais été heureux de pouvoir t'embrasser mais hélas ce n'est pas pour tous de suite encore. Ton petit père qui te redits bonne année. »</blockquote>
+    </div>
+
+  </div>
+</section>
+
+<!-- LIEUX -->
+<section id="lieux">
+  <div class="container">
+    <h2>Géographie de la collection</h2>
+    <p>Les cartes dessinent un réseau de lieux qui raconte les déplacements, les vacances, les affectations militaires et les vies professionnelles de la famille.</p>
+
+    <h3>Le foyer</h3>
+    <div class="places-grid">
+      <div class="place-tag"><div class="place-name">Craon (Mayenne)</div><div class="place-detail">Route de Château-Gontier — domicile et ateliers de la famille Boulay</div></div>
+      <div class="place-tag"><div class="place-name">Cossé-le-Vivien (Mayenne)</div><div class="place-detail">Séjours familiaux chez les cousins Joseph</div></div>
+      <div class="place-tag"><div class="place-name">La Roë</div><div class="place-detail">Lieu d'origine de la famille Letourneur (cousins)</div></div>
+    </div>
+
+    <h3>Affectations militaires d'Auguste (1914-1918)</h3>
+    <div class="places-grid">
+      <div class="place-tag"><div class="place-name">Bourges (Cher)</div><div class="place-detail">1915-1916 — centre de mobilisation et affectation</div></div>
+      <div class="place-tag"><div class="place-name">Montigny</div><div class="place-detail">Lieu d'origine de cartes familiales datées 1914-1915</div></div>
+    </div>
+
+    <h3>Études d'Augusta (années 1920)</h3>
+    <div class="places-grid">
+      <div class="place-tag"><div class="place-name">Laval (Mayenne)</div><div class="place-detail">Pensionnat Sainte-Marie — établissement prestigieux de jeunes filles</div></div>
+      <div class="place-tag"><div class="place-name">Château-Gontier (Mayenne)</div><div class="place-detail">Établissement éducatif visité/mentionné</div></div>
+      <div class="place-tag"><div class="place-name">Angers (Maine-et-Loire)</div><div class="place-detail">Séjours et voyages de jeunesse</div></div>
+    </div>
+
+    <h3>Villégiatures et voyages</h3>
+    <div class="places-grid">
+      <div class="place-tag"><div class="place-name">Paris</div><div class="place-detail">Versailles, Trianon, Bois de Boulogne — séjours touristiques</div></div>
+      <div class="place-tag"><div class="place-name">Bretagne côtière</div><div class="place-detail">Pornichet, La Baule, Saint-Nazaire — villégiature balnéaire</div></div>
+      <div class="place-tag"><div class="place-name">Normandie</div><div class="place-detail">Deauville, Le Pouliguen — séjours de vacances</div></div>
+      <div class="place-tag"><div class="place-name">Massif Central</div><div class="place-detail">Pau, Strasbourg, Lourdes — pèlerinages et tourisme</div></div>
+      <div class="place-tag"><div class="place-name">Vatican & Italie</div><div class="place-detail">1932, 1936 — voyages de jeune mariée (Florence, Naples)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CATALOGUE -->
+<section id="catalogue">
+  <div class="container">
+    <h2>Catalogue des cartes</h2>
+    <p>Parcourez les 149 cartes de la collection. Cliquez sur une carte pour voir l'image et la transcription complète.</p>
+
+    <!-- FILTRES -->
+    <div class="catalog-filters">
+      <input type="text" id="search-input" placeholder="Rechercher (expéditeur, texte, lieu...)" />
+      <select id="sender-filter">
+        <option value="">Tous les expéditeurs</option>
+      </select>
+      <div class="filter-stats" id="filter-stats"></div>
+    </div>
+
+    <!-- GRILLE DES CARTES -->
+    <div class="catalog-grid" id="catalog-grid"></div>
+
+    <!-- PAGINATION -->
+    <div class="catalog-pagination" id="catalog-pagination"></div>
+  </div>
+</section>
+
+<!-- LIGHTBOX VISIONNEUSE -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-backdrop" onclick="closeLightbox()"></div>
+  <div class="lightbox-content">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <div class="lightbox-nav">
+      <button class="lb-prev" onclick="navCard(-1)">&larr;</button>
+      <button class="lb-next" onclick="navCard(1)">&rarr;</button>
+    </div>
+    <div class="lightbox-header" id="lb-header"></div>
+    <div class="lightbox-body">
+      <div class="lightbox-images">
+        <div class="lb-img-tabs">
+          <button class="lb-tab active" onclick="showTab('verso', this)">Verso (message)</button>
+          <button class="lb-tab" onclick="showTab('recto', this)">Recto (image)</button>
+        </div>
+        <div class="lb-img-container" id="lb-img-container">
+          <img id="lb-image" src="" alt="Carte postale" />
+          <div class="lb-img-zoom-hint">Cliquez pour zoomer</div>
+        </div>
+      </div>
+      <div class="lightbox-text">
+        <div class="lb-section">
+          <div class="lb-label">Expéditeur</div>
+          <div class="lb-value" id="lb-sender"></div>
+        </div>
+        <div class="lb-section">
+          <div class="lb-label">Destinataire</div>
+          <div class="lb-value" id="lb-dest"></div>
+        </div>
+        <div class="lb-section" id="lb-date-section">
+          <div class="lb-label">Date</div>
+          <div class="lb-value" id="lb-date"></div>
+        </div>
+        <div class="lb-section">
+          <div class="lb-label">Transcription</div>
+          <div class="lb-transcription" id="lb-trans"></div>
+        </div>
+        <div class="lb-section" id="lb-notes-section">
+          <div class="lb-label">Notes</div>
+          <div class="lb-value lb-notes" id="lb-notes"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>Collection Augusta Boulay — 149 cartes postales familiales (1910-1940)</p>
+  <p>Numérisées et transcrites par Krishna Naudin · Analyse assistée par IA (Claude & Gemini)</p>
+  <p style="margin-top: 0.5rem; opacity: 0.6;">Dernière mise à jour : mars 2026</p>
+</footer>
+
+<script src="cards_data.js"></script>
+<script>
+// ===== CATALOGUE =====
+const ITEMS_PER_PAGE = 40;
+let currentPage = 1;
+let filteredCards = [...CARDS_DATA];
+let currentLbIndex = -1;
+let currentSide = 'verso';
+
+function padNum(n) { return String(n).padStart(3, '0'); }
+function imgPath(n, side) { return `boulay_${padNum(n)}_${side}.jpg`; }
+
+// Build sender filter
+const senderCounts = {};
+CARDS_DATA.forEach(c => {
+  let s = c.exp || '(sans expéditeur)';
+  // Simplify for grouping
+  if (s.includes('Auguste BOULAY') && !s.includes('Émilie')) s = 'Auguste Boulay';
+  else if (s.includes('Maria') || s.includes('Marie Guidault')) s = 'Maria (Marie Guidault)';
+  else if (s.includes('Émilie BOULAY') || s.includes('Émilie')) s = 'Émilie Boulay/Legros';
+  else if (s.includes('inconnu') || s === '(sans expéditeur)') s = '(non identifié)';
+  senderCounts[s] = (senderCounts[s] || 0) + 1;
+});
+const sel = document.getElementById('sender-filter');
+Object.entries(senderCounts)
+  .sort((a,b) => b[1] - a[1])
+  .forEach(([name, count]) => {
+    const opt = document.createElement('option');
+    opt.value = name;
+    opt.textContent = `${name} (${count})`;
+    sel.appendChild(opt);
+  });
+
+const MONTHS_FR = {janvier:0,fevrier:1,mars:2,avril:3,mai:4,juin:5,juillet:6,aout:7,septembre:8,sept:8,octobre:9,novembre:10,decembre:11,'7bre':8,'8bre':9,'9bre':10,'xbre':11};
+function parseCardDate(s) {
+  if (!s || !s.trim()) return null;
+  const low = s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/1er/g, '1').replace(/[.,]/g, ' ').trim();
+  let m;
+  // Parenthesized clarification: "1/8/11 (1er août 1911)" → use the part in parens
+  const paren = low.match(/\(([^)]+)\)/);
+  if (paren) { const r = parseCardDate(paren[1]); if (r) return r; }
+  // "14 sept 1923" or "14 7bre 23" style after = sign
+  const eq = low.split('=');
+  if (eq.length > 1) { const r = parseCardDate(eq[eq.length-1]); if (r) return r; }
+  // Range like [1925-1926] → take first year
+  m = low.match(/\[(\d{4})/);
+  if (m) return Date.UTC(+m[1], 0, 1);
+  // Full date: 19 juillet 1911 / 13 aout 1905
+  m = low.match(/(\d{1,2})\s+([a-z7-9x]+)\s+(\d{4})/);
+  if (m && MONTHS_FR[m[2]] !== undefined) return Date.UTC(+m[3], MONTHS_FR[m[2]], +m[1]);
+  // Short year: "14 7bre 23" → 1923
+  m = low.match(/(\d{1,2})\s+([a-z7-9x]+)\s+(\d{2})(?:\s|$)/);
+  if (m && MONTHS_FR[m[2]] !== undefined) { const y = +m[3] + 1900; return Date.UTC(y, MONTHS_FR[m[2]], +m[1]); }
+  // DD/MM/YY or DD-MM-YY: 16/9/31 → 1931-09-16, 21-8-27 → 1927-08-21
+  m = low.match(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})/);
+  if (m) { let y = +m[3]; if (y < 100) y += 1900; return Date.UTC(y, +m[2]-1, +m[1]); }
+  // Month + year: juillet 1911
+  m = low.match(/([a-zéûà7-9x]+)\s+(\d{4})/);
+  if (m && MONTHS_FR[m[1]] !== undefined) return Date.UTC(+m[2], MONTHS_FR[m[1]], 1);
+  // Year only: 1911
+  m = low.match(/(\d{4})/);
+  if (m) return Date.UTC(+m[1], 0, 1);
+  return null;
+}
+
+function applyFilters() {
+  const query = document.getElementById('search-input').value.toLowerCase().trim();
+  const sender = document.getElementById('sender-filter').value;
+
+  filteredCards = CARDS_DATA.filter(c => {
+    // Sender filter
+    if (sender) {
+      let s = c.exp || '(sans expéditeur)';
+      if (s.includes('Auguste BOULAY') && !s.includes('Émilie')) s = 'Auguste Boulay';
+      else if (s.includes('Maria') || s.includes('Marie Guidault')) s = 'Maria (Marie Guidault)';
+      else if (s.includes('Émilie BOULAY') || s.includes('Émilie')) s = 'Émilie Boulay/Legros';
+      else if (s.includes('inconnu') || s === '(sans expéditeur)') s = '(non identifié)';
+      if (s !== sender) return false;
+    }
+    // Text search
+    if (query) {
+      const haystack = `${c.exp} ${c.dest} ${c.trans} ${c.notes} ${c.date} carte ${c.n}`.toLowerCase();
+      return haystack.includes(query);
+    }
+    return true;
+  });
+
+  // Sort by date (undated cards at the end)
+  filteredCards.sort((a, b) => {
+    const da = parseCardDate(a.date);
+    const db = parseCardDate(b.date);
+    if (da === null && db === null) return a.n - b.n;
+    if (da === null) return 1;
+    if (db === null) return -1;
+    return da - db || a.n - b.n;
+  });
+
+  currentPage = 1;
+  renderCatalog();
+}
+
+function renderCatalog() {
+  const grid = document.getElementById('catalog-grid');
+  const stats = document.getElementById('filter-stats');
+  const pag = document.getElementById('catalog-pagination');
+
+  const total = filteredCards.length;
+  const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
+  const start = (currentPage - 1) * ITEMS_PER_PAGE;
+  const pageCards = filteredCards.slice(start, start + ITEMS_PER_PAGE);
+
+  stats.textContent = `${total} carte${total > 1 ? 's' : ''} trouvée${total > 1 ? 's' : ''}`;
+
+  grid.innerHTML = pageCards.map((c, i) => {
+    const sender = c.exp || '<em>non renseigné</em>';
+    const preview = c.trans ? c.trans.substring(0, 80) + (c.trans.length > 80 ? '…' : '') : '<em>pas de transcription</em>';
+    return `<div class="cat-card" onclick="openLightbox(${start + i})">
+      <div class="cat-thumb">
+        <img src="${imgPath(c.n, 'verso')}" alt="Carte ${c.n}" loading="lazy" onerror="this.style.display='none'" />
+        <span class="cat-num">#${c.n}</span>
+      </div>
+      <div class="cat-info">
+        <div class="cat-sender">${sender}</div>
+        ${c.date ? `<div class="cat-date">${c.date}</div>` : ''}
+        <div class="cat-preview">${preview}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Pagination
+  if (totalPages > 1) {
+    let html = '';
+    if (currentPage > 1) html += `<button onclick="goPage(${currentPage-1})">&larr; Préc.</button>`;
+
+    // Show page numbers
+    for (let p = 1; p <= totalPages; p++) {
+      if (p === 1 || p === totalPages || (p >= currentPage - 2 && p <= currentPage + 2)) {
+        html += `<button class="${p === currentPage ? 'active' : ''}" onclick="goPage(${p})">${p}</button>`;
+      } else if (p === currentPage - 3 || p === currentPage + 3) {
+        html += `<span class="pag-dots">…</span>`;
+      }
+    }
+
+    if (currentPage < totalPages) html += `<button onclick="goPage(${currentPage+1})">Suiv. &rarr;</button>`;
+    pag.innerHTML = html;
+  } else {
+    pag.innerHTML = '';
+  }
+}
+
+function goPage(p) {
+  currentPage = p;
+  renderCatalog();
+  document.getElementById('catalogue').scrollIntoView({behavior: 'smooth'});
+}
+
+// ===== LIGHTBOX =====
+function openLightbox(index) {
+  currentLbIndex = index;
+  currentSide = 'verso';
+  const c = filteredCards[index];
+
+  document.getElementById('lb-header').innerHTML = `<span class="lb-card-num">Carte n° ${c.n}</span>`;
+  document.getElementById('lb-sender').textContent = c.exp || '(non renseigné)';
+  document.getElementById('lb-dest').textContent = c.dest || '(non renseigné)';
+  document.getElementById('lb-date').textContent = c.date || '(non datée)';
+  document.getElementById('lb-date-section').style.display = c.date ? '' : 'none';
+  document.getElementById('lb-trans').innerHTML = c.trans ? c.trans.replace(/\n/g, '<br>') : '<em>Pas de transcription disponible</em>';
+  document.getElementById('lb-notes').textContent = c.notes || '';
+  document.getElementById('lb-notes-section').style.display = c.notes ? '' : 'none';
+
+  const img = document.getElementById('lb-image');
+  img.src = imgPath(c.n, 'verso');
+  img.classList.remove('zoomed');
+
+  // Reset tabs
+  document.querySelectorAll('.lb-tab').forEach((t, i) => t.classList.toggle('active', i === 0));
+
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function navCard(dir) {
+  const newIdx = currentLbIndex + dir;
+  if (newIdx >= 0 && newIdx < filteredCards.length) {
+    openLightbox(newIdx);
+  }
+}
+
+function showTab(side, btn) {
+  currentSide = side;
+  const c = filteredCards[currentLbIndex];
+  document.getElementById('lb-image').src = imgPath(c.n, side);
+  document.getElementById('lb-image').classList.remove('zoomed');
+  document.querySelectorAll('.lb-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// Zoom on image click
+document.getElementById('lb-image').addEventListener('click', function() {
+  this.classList.toggle('zoomed');
+});
+
+// Keyboard nav
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') navCard(-1);
+  if (e.key === 'ArrowRight') navCard(1);
+});
+
+// Event listeners
+document.getElementById('search-input').addEventListener('input', debounce(applyFilters, 300));
+document.getElementById('sender-filter').addEventListener('change', applyFilters);
+
+function debounce(fn, ms) {
+  let t;
+  return function(...args) { clearTimeout(t); t = setTimeout(() => fn(...args), ms); };
+}
+
+// Init
+applyFilters();
+</script>
+
+</body>
+</html>

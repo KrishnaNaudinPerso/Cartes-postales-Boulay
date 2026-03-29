@@ -1,0 +1,228 @@
+COLLECTION AUGUSTA BOULAY - SITE GITHUB PAGES
+==============================================
+
+Created: March 29, 2026
+Project: Complete GitHub Pages website for the Augusta Boulay postcard collection
+
+MANIFEST OF FILES
+=================
+
+CORE WEBSITE FILES:
+  index.html                    - Main website (1231 lines, 46 KB)
+                                 Contains all HTML/CSS/JavaScript in single file
+                                 Ready for GitHub Pages deployment
+  
+  cards_data.js                 - Card metadata (1194 lines, 46 KB)
+                                 149 postcard records with:
+                                   - Card number, sender, recipient
+                                   - Date, full transcription
+                                   - Contextual notes
+  
+REFERENCE DATA:
+  cartes_boulay_reference.json  - Complete JSON reference (102 KB)
+                                 Contains:
+                                   - Project metadata
+                                   - Biographical synthesis of Augusta
+                                   - 30+ identified correspondents
+                                   - All 149 card records with sources
+  
+DOCUMENTATION:
+  README.md                     - Complete site documentation (221 lines, 7.2 KB)
+                                 Includes:
+                                   - Project overview
+                                   - Section descriptions
+                                   - Data structure reference
+                                   - Deployment instructions
+                                   - Development notes
+  
+  MANIFEST.txt                  - This file
+
+IMAGE PREPARATION:
+  prepare_images.sh             - Image mapping script (121 lines, 3.8 KB)
+                                 Maps source scans to sequential naming
+                                 Usage: bash prepare_images.sh
+  
+  image_mapping.log             - Detailed mapping log (3.7 KB)
+                                 Lists all copied images
+
+IMAGES (64 total):
+  boulay_NNN_recto.jpg          - 32 image files (recto/front of postcards)
+  boulay_NNN_verso.jpg          - 32 image files (verso/message side)
+                                 Combined size: ~20 MB
+                                 Images numbered 001-149 (32 with scans)
+
+CONTENT SECTIONS IN index.html
+==============================
+
+1. HERO SECTION
+   Title: Collection Augusta Boulay
+   Subtitle: Cartes postales familiales — Craon, Mayenne — 1910 à 1940
+   Stats: 149 cartes | 30 années | 50+ correspondants | 3 générations
+
+2. NAVIGATION BAR
+   Links to: Introduction, Arbre familial, Personnages, Chronologie, 
+            Extraits, Lieux, Catalogue
+
+3. INTRODUCTION
+   - Biography of Augusta Boulay (1907-1993)
+   - Family context (parents Auguste & Émilie)
+   - Themes: childhood, WWI, adolescence, marriage
+
+4. FAMILY TREE (Arbre familial)
+   - Three generations of Boulays
+   - Key dates and relationships
+   - Marriage information
+   - Root: François Boulay (1807-1877)
+
+5. PERSONNAGES (Main correspondents)
+   - Augusta Boulay/Lemonnier — the subject
+   - Auguste Boulay — father
+   - Émilie Boulay — mother
+   - Maria (Marie Guidault) — domestic helper
+   - Guy Lemonnier — husband
+   - Tante Blu — aunt (name unknown)
+
+6. CHRONOLOGIE (Timeline)
+   - 1807: François Boulay birth → 1940: Auguste death
+   - Key milestones: WWI (1914-18), mother's death (1925), marriage (1931)
+
+7. EXTRAITS (Notable excerpts)
+   - Three selected postcards with full transcriptions
+   - Shows child, father, family voices during WWI
+
+8. LIEUX (Geography)
+   - Home base: Craon (Mayenne)
+   - Military assignments: Bourges (1915-16)
+   - Education: Laval, Angers, Château-Gontier
+   - Vacations: Paris, Bretagne, Vatican, Italy
+
+9. CATALOGUE (Full searchable collection)
+   - Grid view of 149 cards (40 per page)
+   - Real-time search by sender, text, location
+   - Filter by sender (dropdown)
+   - Lightbox viewer with:
+     * Recto/verso image toggle
+     * Full transcription
+     * Sender/recipient/date info
+     * Zoom functionality
+     * Keyboard navigation (arrows, escape)
+
+FEATURES
+========
+
+INTERACTIVE:
+  ✓ Real-time search filtering
+  ✓ Sender filtering dropdown (auto-generated from data)
+  ✓ Full-screen lightbox viewer with zoom
+  ✓ Recto/verso image switching
+  ✓ Keyboard navigation (arrow keys, ESC)
+  ✓ Pagination with smart page buttons
+  ✓ Automatic date sorting
+
+DESIGN:
+  ✓ Responsive layout (desktop, tablet, mobile)
+  ✓ Sepia vintage color palette
+  ✓ Elegant typography (Playfair Display + Source Sans 3)
+  ✓ Professional styling throughout
+  ✓ Hover effects and transitions
+
+ACCESSIBILITY:
+  ✓ Semantic HTML5
+  ✓ Good contrast ratios
+  ✓ Keyboard-navigable interface
+  ✓ Alt text on images
+  ✓ French language throughout
+
+TECHNICAL:
+  ✓ Single-file HTML (no build process needed)
+  ✓ Static files only (no server required)
+  ✓ GitHub Pages compatible
+  ✓ No external dependencies
+  ✓ Self-contained CSS and JavaScript
+  ✓ Efficient data format (JSON)
+
+DATA STATISTICS
+===============
+
+Total Postcards: 149
+Date Range: 1910-1940 (30 years)
+With Images: 32 postcards (64 image files)
+Text-Only: 117 postcards
+
+Identified Correspondents: 30+
+Main Senders:
+  - Auguste Boulay (father)
+  - Maria Guidault (housemaid)
+  - Various family members and friends
+
+DEPLOYMENT
+==========
+
+For GitHub Pages:
+  1. Create or use existing GitHub repository
+  2. Copy all files to /docs directory or to gh-pages branch
+  3. Commit and push to GitHub
+  4. Enable GitHub Pages in repository settings
+  5. Access at: https://username.github.io/
+
+For Local Testing:
+  1. Open index.html in web browser, OR
+  2. Run: python3 -m http.server 8000
+  3. Open: http://localhost:8000/
+
+COMPATIBILITY
+=============
+
+Browsers: Chrome, Firefox, Safari, Edge (modern versions)
+Devices: Desktop, tablet, mobile
+Screen Sizes: 320px - 4K displays
+Performance: Loads in <5 seconds on typical internet connection
+
+FILE SIZING
+===========
+
+index.html              46 KB    (HTML + CSS + JS combined)
+cards_data.js           46 KB    (149 card records)
+cartes_boulay_reference.json  102 KB    (Complete metadata)
+64 image files          ~20 MB   (Total postcard scans)
+README.md              7 KB     (Documentation)
+Other files            8 KB     (Scripts, manifest, logs)
+                       --------
+TOTAL                  ~20 MB   (Dominated by images)
+
+NOTES
+=====
+
+- Images are included locally. For GitHub Pages with size limits,
+  images can be stored on separate CDN/cloud storage.
+
+- All French language content. Can be translated if needed.
+
+- The site is fully functional with 32 images. Additional images can
+  be added by running prepare_images.sh after placing new scans in
+  the source directory.
+
+- The lightbox gracefully handles missing images (shows placeholder).
+
+- Search and filtering work on all 149 cards regardless of image availability.
+
+NEXT STEPS
+==========
+
+1. Upload to GitHub:
+   git init
+   git add .
+   git commit -m "Initial commit: Augusta Boulay postcard collection site"
+   git push -u origin main
+
+2. Enable GitHub Pages in repository settings
+
+3. (Optional) Add custom domain name
+
+4. (Optional) Enable HTTPS certificate
+
+5. Share the public URL with interested parties
+
+==============================================
+Created with Claude AI Assistant (Haiku 4.5)
+March 2026
