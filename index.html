@@ -996,7 +996,11 @@
   <p>Collection Augusta Boulay — 201 cartes postales familiales (1910-1940)</p>
   <p>Numérisées et transcrites par Krishna Naudin · Analyse assistée par IA (Claude & Gemini)</p>
   <p style="margin-top: 0.5rem; opacity: 0.6;">Dernière mise à jour : mars 2026</p>
+  <p style="margin-top: 0.5rem; opacity: 0.6;">Contact : <span id="ct"></span></p>
 </footer>
+<script>
+(function(){var a='genealogie.krishna';var b='proton.me';var e=document.getElementById('ct');var l=document.createElement('a');l.textContent=a+'\u0040'+b;l.href='mai'+'lto:'+a+'@'+b;l.style.color='inherit';e.appendChild(l);})();
+</script>
 
 <script src="cards_data.js"></script>
 <script>
@@ -1079,7 +1083,7 @@ function applyFilters() {
     }
     // Text search
     if (query) {
-      const haystack = `${c.exp} ${c.dest} ${c.trans} ${c.notes} ${c.date} carte ${c.n}`.toLowerCase();
+      const haystack = `${c.exp} ${c.dest} ${c.trans} ${c.notes} ${c.date} ${c.titre || ''} carte ${c.n}`.toLowerCase();
       return haystack.includes(query);
     }
     return true;
@@ -1112,7 +1116,7 @@ function renderCatalog() {
   stats.textContent = `${total} carte${total > 1 ? 's' : ''} trouvée${total > 1 ? 's' : ''}`;
 
   grid.innerHTML = pageCards.map((c, i) => {
-    const sender = c.exp || '<em>non renseigné</em>';
+    const sender = c.titre || c.exp || '<em>non renseigné</em>';
     const preview = c.trans ? c.trans.substring(0, 80) + (c.trans.length > 80 ? '…' : '') : '<em>pas de transcription</em>';
     return `<div class="cat-card" onclick="openLightbox(${start + i})">
       <div class="cat-thumb">
@@ -1121,6 +1125,7 @@ function renderCatalog() {
       </div>
       <div class="cat-info">
         <div class="cat-sender">${sender}</div>
+        ${c.exp && c.titre ? `<div class="cat-date">${c.exp}</div>` : ''}
         ${c.date ? `<div class="cat-date">${c.date}</div>` : ''}
         <div class="cat-preview">${preview}</div>
       </div>
