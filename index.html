@@ -426,6 +426,7 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s;
+    image-orientation: from-image;
   }
   .cat-card:hover .cat-thumb img { transform: scale(1.05); }
   .cat-num {
@@ -577,6 +578,9 @@
     min-height: 350px;
     position: relative;
     cursor: zoom-in;
+  }
+  .lb-img-container img {
+    image-orientation: from-image;
   }
   #lb-image {
     max-width: 100%;
