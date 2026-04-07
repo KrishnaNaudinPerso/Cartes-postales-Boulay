@@ -1,4 +1,4 @@
-const CARDS = [
+const CARDS_DATA = [
   {n: 1, date: "27 octobre 1910", exp: "", dest: "", titre: "27 octobre 1910 – Bonne année", trans: "", notes: ""},
   {n: 2, date: "27 août 1912", exp: "", dest: "", titre: "27 août 1912 – Bonne fête", trans: "", notes: ""},
   {n: 3, date: "28 août 1912", exp: "", dest: "", titre: "28 août 1912 - Mignon", trans: "", notes: ""},
