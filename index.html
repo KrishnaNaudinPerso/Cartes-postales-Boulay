@@ -86,46 +86,26 @@
   .stat .label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.7; }
 
   /* === NAV === */
-  .site-nav {
+  nav {
     background: var(--ink);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .nav-pages {
-    background: #3d2b1f;
-    padding: 0.4rem 2rem;
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-  }
-  .nav-pages a {
-    color: var(--accent-light);
-    text-decoration: none;
-    font-size: 0.8rem;
-    letter-spacing: 0.05em;
-    transition: color 0.2s;
-  }
-  .nav-pages a:hover, .nav-pages a.active { color: #fff; }
-
-  .nav-sections {
-    padding: 0.6rem 2rem;
+    padding: 0.8rem 2rem;
     display: flex;
     justify-content: center;
     gap: 2rem;
     flex-wrap: wrap;
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
-  .nav-sections a {
+  nav a {
     color: var(--sepia-dark);
     text-decoration: none;
     font-size: 0.9rem;
     letter-spacing: 0.05em;
-    text-transform: uppercase;
     transition: color 0.2s;
   }
-  .nav-sections a:hover { color: var(--accent-light); }
+  nav a:hover { color: var(--accent-light); }
+  nav a.active { color: #fff; }
 
   /* === SECTIONS === */
   .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
@@ -693,25 +673,14 @@
 </header>
 
 <!-- NAVIGATION -->
-<div class="site-nav">
-  <div class="nav-pages">
-    <a href="index.html" class="active">Catalogue</a>
-    <a href="biographie.html">Biographie</a>
-    <a href="personnages.html">Personnages</a>
-    <a href="arbre.html">Arbre g&#xe9;n&#xe9;alogique</a>
-    <a href="galerie.html">Galerie photos</a>
-    <a href="carte.html">Carte g&#xe9;ographique</a>
-  </div>
-  <div class="nav-sections">
-    <a href="#introduction">Introduction</a>
-    <a href="#arbre">Arbre familial</a>
-    <a href="#personnages">Personnages</a>
-    <a href="#chronologie">Chronologie</a>
-    <a href="#extraits">Extraits</a>
-    <a href="#lieux">Lieux</a>
-    <a href="#catalogue">Catalogue</a>
-    <a href="#commentaires">Commentaires</a>
-</div>
+<nav>
+  <a href="index.html" class="active">Catalogue</a>
+  <a href="biographie.html">Biographie</a>
+  <a href="personnages.html">Personnages</a>
+  <a href="arbre.html">Arbre g&#xe9;n&#xe9;alogique</a>
+  <a href="galerie.html">Galerie photos</a>
+  <a href="carte.html">Carte g&#xe9;ographique</a>
+</nav>
 
 <!-- INTRODUCTION -->
 <section id="introduction">
