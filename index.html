@@ -385,7 +385,7 @@
     color: var(--ink);
   }
   #search-input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(139,69,19,0.15); }
-  #sender-filter {
+  #sender-filter, #dest-filter {
     padding: 0.7rem 1rem;
     border: 1px solid var(--sepia-dark);
     border-radius: 6px;
@@ -984,6 +984,9 @@
       <select id="sender-filter">
         <option value="">Tous les expéditeurs</option>
       </select>
+      <select id="dest-filter">
+        <option value="">Tous les destinataires</option>
+      </select>
       <select id="sort-order">
         <option value="chrono">Ordre chronologique</option>
         <option value="numero">Ordre numérique (#)</option>
@@ -1117,26 +1120,25 @@ let currentSide = 'verso';
 function padNum(n) { return String(n).padStart(3, '0'); }
 function imgPath(n, side) { return `boulay_${padNum(n)}_${side}.jpg`; }
 
-// Build sender filter
-const senderCounts = {};
-CARDS_DATA.forEach(c => {
-  let s = c.exp || '(sans expéditeur)';
-  // Simplify for grouping
-  if (s.includes('Auguste BOULAY') && !s.includes('Émilie')) s = 'Auguste Boulay';
-  else if (s.includes('Maria') || s.includes('Marie Guidault')) s = 'Maria (Marie Guidault)';
-  else if (s.includes('Émilie BOULAY') || s.includes('Émilie')) s = 'Émilie Boulay/Legros';
-  else if (s.includes('inconnu') || s === '(sans expéditeur)') s = '(non identifié)';
-  senderCounts[s] = (senderCounts[s] || 0) + 1;
-});
-const sel = document.getElementById('sender-filter');
-Object.entries(senderCounts)
-  .sort((a,b) => b[1] - a[1])
-  .forEach(([name, count]) => {
-    const opt = document.createElement('option');
-    opt.value = name;
-    opt.textContent = `${name} (${count})`;
-    sel.appendChild(opt);
+// Build sender & dest filters (exact values, sorted by count)
+function buildFilterDropdown(field, selectId) {
+  const counts = {};
+  CARDS_DATA.forEach(c => {
+    const v = c[field] || '(non identifié)';
+    counts[v] = (counts[v] || 0) + 1;
   });
+  const sel = document.getElementById(selectId);
+  Object.entries(counts)
+    .sort((a,b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .forEach(([name, count]) => {
+      const opt = document.createElement('option');
+      opt.value = name;
+      opt.textContent = `${name} (${count})`;
+      sel.appendChild(opt);
+    });
+}
+buildFilterDropdown('exp', 'sender-filter');
+buildFilterDropdown('dest', 'dest-filter');
 
 const MONTHS_FR = {janvier:0,fevrier:1,mars:2,avril:3,mai:4,juin:5,juillet:6,aout:7,septembre:8,sept:8,octobre:9,novembre:10,decembre:11,'7bre':8,'8bre':9,'9bre':10,'xbre':11};
 function parseCardDate(s) {
@@ -1176,16 +1178,18 @@ function parseCardDate(s) {
 function applyFilters() {
   const query = document.getElementById('search-input').value.toLowerCase().trim();
   const sender = document.getElementById('sender-filter').value;
+  const dest = document.getElementById('dest-filter').value;
 
   filteredCards = CARDS_DATA.filter(c => {
     // Sender filter
     if (sender) {
-      let s = c.exp || '(sans expéditeur)';
-      if (s.includes('Auguste BOULAY') && !s.includes('Émilie')) s = 'Auguste Boulay';
-      else if (s.includes('Maria') || s.includes('Marie Guidault')) s = 'Maria (Marie Guidault)';
-      else if (s.includes('Émilie BOULAY') || s.includes('Émilie')) s = 'Émilie Boulay/Legros';
-      else if (s.includes('inconnu') || s === '(sans expéditeur)') s = '(non identifié)';
+      const s = c.exp || '(non identifié)';
       if (s !== sender) return false;
+    }
+    // Dest filter
+    if (dest) {
+      const d = c.dest || '(non identifié)';
+      if (d !== dest) return false;
     }
     // Text search
     if (query) {
@@ -1333,6 +1337,7 @@ document.addEventListener('keydown', e => {
 // Event listeners
 document.getElementById('search-input').addEventListener('input', debounce(applyFilters, 300));
 document.getElementById('sender-filter').addEventListener('change', applyFilters);
+document.getElementById('dest-filter').addEventListener('change', applyFilters);
 document.getElementById('sort-order').addEventListener('change', applyFilters);
 
 function debounce(fn, ms) {
