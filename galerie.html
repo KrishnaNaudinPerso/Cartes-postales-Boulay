@@ -131,13 +131,24 @@
         }
 
         .photo-placeholder {
-            height: 200px;
             background: var(--sepia-dark);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--ink-light);
             font-size: 3rem;
+            overflow: hidden;
+        }
+
+        .photo-placeholder img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s;
+        }
+
+        .photo-card:hover .photo-placeholder img {
+            transform: scale(1.03);
         }
 
         .photo-caption {
@@ -283,70 +294,88 @@
 
     <main>
         <div class="info-box">
-            <strong>Note :</strong> Les photos de famille proviennent du document Word original. Elles seront ajoutées progressivement à cette galerie.
+            <strong>Note :</strong> Ces photos de famille proviennent du document Word original de la collection Augusta Boulay. Cliquez sur une photo pour l'agrandir.
         </div>
 
         <div class="photo-grid">
-            <!-- Photo 1 -->
-            <div class="photo-card" data-photo="photos/photo_augusta.jpg" data-caption="Portrait d'Augusta Boulay" data-description="Photo individuelle d'Augusta">
-                <div class="photo-placeholder">📷</div>
+            <!-- Photo 1 : Augusta enfant -->
+            <div class="photo-card" data-photo="photos/photo_augusta_enfant.jpg" data-caption="Augusta Boulay enfant" data-description="Augusta avec un cerceau, dans la serre familiale à Craon">
+                <div class="photo-placeholder"><img src="photos/photo_augusta_enfant.jpg" alt="Augusta Boulay enfant"></div>
                 <div class="photo-caption">
-                    <h3>Portrait d'Augusta Boulay</h3>
-                    <p>Photo individuelle d'Augusta</p>
+                    <h3>Augusta Boulay enfant</h3>
+                    <p>Augusta avec un cerceau, dans la serre familiale à Craon</p>
                 </div>
             </div>
 
-            <!-- Photo 2 -->
-            <div class="photo-card" data-photo="photos/photo_soeurs.jpg" data-caption="Augusta et Émilie Boulay" data-description="Les deux sœurs">
-                <div class="photo-placeholder">📷</div>
+            <!-- Photo 2 : Les deux sœurs -->
+            <div class="photo-card" data-photo="photos/photo_soeurs.jpg" data-caption="Augusta et Émilie Boulay" data-description="Les deux sœurs en manteaux de fourrure et chapeaux assortis">
+                <div class="photo-placeholder"><img src="photos/photo_soeurs.jpg" alt="Augusta et Émilie Boulay"></div>
                 <div class="photo-caption">
                     <h3>Augusta et Émilie Boulay</h3>
-                    <p>Les deux sœurs — Augusta (à gauche) et Émilie (à droite)</p>
+                    <p>Les deux sœurs en manteaux de fourrure et chapeaux assortis</p>
                 </div>
             </div>
 
-            <!-- Photo 3 -->
-            <div class="photo-card" data-photo="photos/photo_famille_1.jpg" data-caption="La famille Boulay au complet" data-description="Auguste Boulay, Émilie Legros, Augusta et Émilie, avec Marie Boulay (sœur d'Auguste)">
-                <div class="photo-placeholder">📷</div>
+            <!-- Photo 3 : Famille sur le banc -->
+            <div class="photo-card" data-photo="photos/photo_famille_banc.jpg" data-caption="La famille Boulay" data-description="Auguste, Augusta, Émilie (enfant) et Émilie Legros (mère) sur un banc">
+                <div class="photo-placeholder"><img src="photos/photo_famille_banc.jpg" alt="La famille Boulay sur un banc"></div>
                 <div class="photo-caption">
-                    <h3>La famille Boulay au complet</h3>
-                    <p>Auguste Boulay, Émilie Legros, Augusta et Émilie, avec Marie Boulay (sœur d'Auguste)</p>
+                    <h3>La famille Boulay</h3>
+                    <p>Auguste, Augusta, Émilie et leur mère Émilie Legros sur un banc</p>
                 </div>
             </div>
 
-            <!-- Photo 4 -->
-            <div class="photo-card" data-photo="photos/photo_emilie.jpg" data-caption="Portrait d'Émilie Boulay" data-description="La sœur cadette d'Augusta">
-                <div class="photo-placeholder">📷</div>
+            <!-- Photo 4 : Famille dans le jardin -->
+            <div class="photo-card" data-photo="photos/photo_famille_jardin.jpg" data-caption="La famille Boulay au jardin" data-description="Auguste, les deux filles et Émilie Legros dans le jardin à Craon">
+                <div class="photo-placeholder"><img src="photos/photo_famille_jardin.jpg" alt="La famille Boulay au jardin"></div>
                 <div class="photo-caption">
-                    <h3>Portrait d'Émilie Boulay</h3>
-                    <p>La sœur cadette d'Augusta</p>
+                    <h3>La famille Boulay au jardin</h3>
+                    <p>Auguste, les deux filles et Émilie Legros dans le jardin à Craon</p>
                 </div>
             </div>
 
-            <!-- Photo 5 -->
-            <div class="photo-card" data-photo="photos/photo_augusta_vichy.jpg" data-caption="Augusta Boulay épouse Lemonnier à Vichy" data-description="Augusta après son mariage">
-                <div class="photo-placeholder">📷</div>
+            <!-- Photo 5 : Famille en automobile -->
+            <div class="photo-card" data-photo="photos/photo_famille_automobile.jpg" data-caption="La famille Boulay en automobile" data-description="La famille dans une automobile du début du siècle, devant les ateliers">
+                <div class="photo-placeholder"><img src="photos/photo_famille_automobile.jpg" alt="La famille Boulay en automobile"></div>
                 <div class="photo-caption">
-                    <h3>Augusta à Vichy</h3>
-                    <p>Augusta Boulay épouse Lemonnier après son mariage</p>
+                    <h3>La famille en automobile</h3>
+                    <p>La famille dans une automobile du début du siècle</p>
                 </div>
             </div>
 
-            <!-- Photo 6 -->
-            <div class="photo-card" data-photo="photos/photo_reunion.jpg" data-caption="Réunion familiale" data-description="Les couples Augusta-Guy Lemonnier, Émilie-Albert, deux cousins avec leurs épouses (4 couples) et leurs enfants">
-                <div class="photo-placeholder">📷</div>
+            <!-- Photo 6 : Réunion familiale -->
+            <div class="photo-card" data-photo="photos/photo_reunion_familiale.jpg" data-caption="Réunion familiale" data-description="Groupe familial avec plusieurs couples et enfants, années 1920-1930">
+                <div class="photo-placeholder"><img src="photos/photo_reunion_familiale.jpg" alt="Réunion familiale"></div>
                 <div class="photo-caption">
                     <h3>Réunion familiale</h3>
-                    <p>Les couples, cousins et enfants réunis pour une photographie</p>
+                    <p>Groupe familial avec plusieurs couples et enfants, années 1920-1930</p>
                 </div>
             </div>
 
-            <!-- Photo 7 -->
-            <div class="photo-card" data-photo="photos/photo_famille_2.jpg" data-caption="Autre photo de famille" data-description="Seconde photo de groupe de la famille Boulay">
-                <div class="photo-placeholder">📷</div>
+            <!-- Photo 7 : Portrait femme 1 -->
+            <div class="photo-card" data-photo="photos/photo_portrait_femme1.jpg" data-caption="Portrait de femme" data-description="Probablement Émilie Legros (mère d'Augusta) ou Marie Boulay (sœur d'Auguste)">
+                <div class="photo-placeholder"><img src="photos/photo_portrait_femme1.jpg" alt="Portrait de femme"></div>
                 <div class="photo-caption">
-                    <h3>Autre photo de famille</h3>
-                    <p>Seconde photo de groupe de la famille Boulay</p>
+                    <h3>Portrait de femme</h3>
+                    <p>Émilie Legros ou Marie Boulay</p>
+                </div>
+            </div>
+
+            <!-- Photo 8 : Portrait femme 2 -->
+            <div class="photo-card" data-photo="photos/photo_portrait_femme2.jpg" data-caption="Portrait de jeune femme" data-description="Probablement Émilie Boulay (sœur d'Augusta)">
+                <div class="photo-placeholder"><img src="photos/photo_portrait_femme2.jpg" alt="Portrait de jeune femme"></div>
+                <div class="photo-caption">
+                    <h3>Portrait de jeune femme</h3>
+                    <p>Probablement Émilie Boulay, sœur d'Augusta</p>
+                </div>
+            </div>
+
+            <!-- Photo 9 : Couple à Vichy -->
+            <div class="photo-card" data-photo="photos/photo_couple_vichy.jpg" data-caption="Augusta et Guy Lemonnier" data-description="Le couple Augusta Boulay et Guy Lemonnier, probablement à Vichy après leur mariage (1931)">
+                <div class="photo-placeholder"><img src="photos/photo_couple_vichy.jpg" alt="Augusta et Guy Lemonnier"></div>
+                <div class="photo-caption">
+                    <h3>Augusta et Guy Lemonnier</h3>
+                    <p>Le couple après leur mariage (1931), probablement à Vichy</p>
                 </div>
             </div>
         </div>
