@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personnages - Collection de cartes postales Boulay</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sepia: #f5f0e8;
+            --sepia-dark: #e8dfd0;
+            --ink: #2c2417;
+            --ink-light: #5a4d3a;
+            --accent: #8b4513;
+            --accent-light: #c4956a;
+            --blue-link: #4a6fa5;
+            --card-bg: #fffdf7;
+            --shadow: rgba(44, 36, 23, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans 3', 'Georgia', serif;
+            background: var(--sepia);
+            color: var(--ink);
+            line-height: 1.7;
+        }
+
+        nav {
+            background: var(--ink);
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            color: var(--sepia-dark);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--accent-light);
+        }
+
+        header.hero {
+            background: linear-gradient(135deg, var(--sepia-dark) 0%, var(--sepia) 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--sepia-dark);
+        }
+
+        header.hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        header.hero p {
+            font-size: 1rem;
+            color: var(--ink-light);
+            font-style: italic;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .search-container {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .search-container input {
+            width: 100%;
+            max-width: 400px;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            border: 1px solid var(--sepia-dark);
+            border-radius: 4px;
+            background: var(--card-bg);
+            color: var(--ink);
+            font-family: 'Source Sans 3', sans-serif;
+        }
+
+        .search-container input::placeholder {
+            color: var(--ink-light);
+        }
+
+        .search-container input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+        }
+
+        section.character-section {
+            margin-bottom: 3rem;
+        }
+
+        section.character-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--sepia-dark);
+        }
+
+        .person-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .person-card {
+            background: var(--card-bg);
+            border: 1px solid var(--sepia-dark);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px var(--shadow);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .person-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px var(--shadow);
+        }
+
+        .person-card.hidden {
+            display: none;
+        }
+
+        .person-card .name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 0.3rem;
+            font-weight: 700;
+        }
+
+        .person-card .meta {
+            font-size: 0.85rem;
+            color: var(--ink-light);
+            margin-bottom: 0.8rem;
+        }
+
+        .person-card .role {
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .person-card .bio {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 0.8rem;
+        }
+
+        .person-card .badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        footer {
+            background: var(--ink);
+            color: var(--sepia-dark);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--accent-light);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            color: var(--ink-light);
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            header.hero h1 {
+                font-size: 2rem;
+            }
+
+            nav {
+                gap: 1rem;
+                padding: 0.8rem 1rem;
+            }
+
+            nav a {
+                font-size: 0.8rem;
+            }
+
+            main {
+                padding: 1.5rem;
+            }
+
+            .person-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Catalogue</a>
+        <a href="biographie.html">Biographie</a>
+        <a href="personnages.html" class="active">Personnages</a>
+        <a href="arbre.html">Arbre généalogique</a>
+        <a href="galerie.html">Galerie photos</a>
+        <a href="carte.html">Carte géographique</a>
+    </nav>
+
+    <header class="hero">
+        <h1>Personnages</h1>
+        <p>Les correspondants et proches d'Augusta Boulay</p>
+    </header>
+
+    <main>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Rechercher un personnage par nom...">
+        </div>
+
+        <!-- Section 1: Famille Boulay et proches -->
+        <section class="character-section">
+            <h2>Famille Boulay et proches</h2>
+            <div class="person-grid" data-section="family-boulay">
+                <div class="person-card">
+                    <div class="name">Augusta BOULAY</div>
+                    <div class="meta">1907 – 1993</div>
+                    <div class="role">Personnage central</div>
+                    <div class="bio">Fille aînée d'Auguste et Émilie Legros. Destinataire principale de la collection de cartes postales. Épouse Guy Lemonnier en 1931 et reprend les ateliers familiaux avec son mari.</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">Auguste BOULAY</div>
+                    <div class="meta">1878 – 1940</div>
+                    <div class="role">Père, mécanicien</div>
+                    <div class="bio">Mécanicien et constructeur, dirigeant des ateliers de constructions mécaniques. Affecté à Bourges pendant la Première Guerre mondiale (artillerie, Camp de Tivoli).</div>
+                    <div class="badge">Destinataire — 13 cartes</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">Émilie LEGROS</div>
+                    <div class="meta">1883 – 1925</div>
+                    <div class="role">Mère</div>
+                    <div class="bio">Mère d'Augusta. Décédée en 1925. Épouse d'Auguste Boulay (ses parents étaient cousins germains).</div>
+                    <div class="badge">Destinataire — rare</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">Émilie "Mimi" BOULAY</div>
+                    <div class="meta">~1910 – ?</div>
+                    <div class="role">Sœur cadette</div>
+                    <div class="bio">Sœur cadette d'Augusta.</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">Marie Désirée BOULAY</div>
+                    <div class="meta">1852 – 1933</div>
+                    <div class="role">Grand-tante et grand-mère</div>
+                    <div class="bio">Sœur de François Alexandre Boulay. Relation consanguine due au mariage entre cousins germains (Auguste et Émilie Legros).</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">Marie BOULAY</div>
+                    <div class="meta">~1874 – 1960</div>
+                    <div class="role">Sœur d'Auguste</div>
+                    <div class="bio">Célibataire. Surveillait les ouvriers et habitait la grande maison route de Château-Gontier.</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">Maria GUIDAULT veuve Guilloux</div>
+                    <div class="meta">1875 – 1962</div>
+                    <div class="role">Employée de maison</div>
+                    <div class="bio">Très attachée à la famille. Vivait dans une petite maison en face. S'occupera plus tard des "filles Lemonnier".</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">Tante Blu</div>
+                    <div class="meta">Identité inconnue</div>
+                    <div class="role">Tante</div>
+                    <div class="bio">Très présente dans les cartes postales entre 1914 et 1925. Son identité précise demeure inconnue.</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">François BOULAY</div>
+                    <div class="meta">Père d'Auguste</div>
+                    <div class="role">Grand-père</div>
+                    <div class="bio">Fondateur des ateliers de constructions mécaniques en 1869. Mentionné comme malade dans certaines cartes.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Famille Lemonnier -->
+        <section class="character-section">
+            <h2>Famille Lemonnier (par mariage)</h2>
+            <div class="person-grid" data-section="family-lemonnier">
+                <div class="person-card">
+                    <div class="name">Guy Michel Albert LEMONNIER</div>
+                    <div class="meta">Mariage : 1931</div>
+                    <div class="role">Époux d'Augusta</div>
+                    <div class="bio">Époux d'Augusta. Reprend l'affaire de son beau-père Auguste Boulay et dirige les ateliers de constructions mécaniques.</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">Michel LEMONNIER</div>
+                    <div class="role">Beau-père</div>
+                    <div class="bio">Père de Guy. Parent d'Augusta par mariage.</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">Eulalie DÉCRÉ</div>
+                    <div class="role">Belle-mère</div>
+                    <div class="bio">Mère de Guy. Parent d'Augusta par mariage.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Cousins et cousines -->
+        <section class="character-section">
+            <h2>Cousins et cousines</h2>
+            <div class="person-grid" data-section="family-cousins">
+                <div class="person-card">
+                    <div class="name">Tante Clémence</div>
+                    <div class="meta">Clémence Marie Augustine Legros, née 1889</div>
+                    <div class="role">Cousine</div>
+                    <div class="bio">Née à Craon. Cousine germaine d'Augusta par sa mère.</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">Tante Berthe</div>
+                    <div class="meta">Berthe Marie Augustine Boulay, née 1885</div>
+                    <div class="role">Cousine</div>
+                    <div class="bio">Sœur cadette d'Auguste. Mère du petit cousin Paul.</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">Tonton Jules</div>
+                    <div class="role">Oncle par mariage</div>
+                    <div class="bio">Mari de Tante Berthe. Mentionné avec le petit cousin Paul.</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">Paul</div>
+                    <div class="role">Petit cousin</div>
+                    <div class="bio">Fils de Tante Berthe et Tonton Jules.</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">Tante Aurélie</div>
+                    <div class="meta">Aurélie Marie Françoise Boulay, née 1890</div>
+                    <div class="role">Tante</div>
+                    <div class="bio">Sœur cadette d'Auguste.</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">Tante Fernande</div>
+                    <div class="meta">Fernande Marie Emilienne Boulay, née 1892</div>
+                    <div class="role">Tante</div>
+                    <div class="bio">Sœur cadette d'Auguste. Mentionnée par Auguste depuis Mehun-sur-Yèvre.</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">Agnès Legros épouse Fauvel</div>
+                    <div class="role">Cousine germaine</div>
+                    <div class="bio">Cousine germaine d'Augusta par sa mère.</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">L. et M. Letourneur</div>
+                    <div class="meta">Vœux : 1910</div>
+                    <div class="role">Cousins</div>
+                    <div class="bio">Cousins d'Augusta. Mentionnés lors de vœux en 1910.</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">M. S. Joseph & famille</div>
+                    <div class="role">Cousins</div>
+                    <div class="bio">M. S. Joseph, M. et A. L. Joseph. Cousins d'Augusta.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Amies et correspondantes -->
+        <section class="character-section">
+            <h2>Amies et correspondantes</h2>
+            <div class="person-grid" data-section="friends">
+                <div class="person-card">
+                    <div class="name">Jeanne Mary</div>
+                    <div class="meta">1921 – 1925</div>
+                    <div class="role">Amie très proche</div>
+                    <div class="bio">Amie très proche d'Augusta. Grande voyageuse. Nombreuses cartes échangées pendant plusieurs années.</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">Janette</div>
+                    <div class="meta">1911 – 1914</div>
+                    <div class="role">Amie fidèle</div>
+                    <div class="bio">Amie fidèle. Correspondance depuis Pornichet, Craon, Lourdes et autres destinations.</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">Madeleine Besnard</div>
+                    <div class="role">Grande amie</div>
+                    <div class="bio">Grande amie d'Augusta.</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">Lily</div>
+                    <div class="role">Amie d'école</div>
+                    <div class="bio">Amie d'école d'Augusta. Correspondance depuis Laval, Angers et Deauville.</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">Yvette</div>
+                    <div class="role">Amie d'école</div>
+                    <div class="bio">Amie d'école d'Augusta. Correspondance depuis Laval, Angers et Deauville.</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">Marie-Louise</div>
+                    <div class="role">Amie d'école</div>
+                    <div class="bio">Amie d'école d'Augusta. Correspondance depuis Laval, Angers et Deauville.</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">Jacqueline</div>
+                    <div class="role">Amie d'école</div>
+                    <div class="bio">Amie d'école d'Augusta. Correspondance depuis Laval, Angers et Deauville.</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">Janine</div>
+                    <div class="meta">1925</div>
+                    <div class="role">Amie</div>
+                    <div class="bio">Amie d'Augusta. Correspondance depuis Nancy en 1925.</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">Marguerite Balny</div>
+                    <div class="role">Correspondante</div>
+                    <div class="bio">Correspondante d'Augusta.</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">J. Tesson</div>
+                    <div class="meta">~1937 – 1938</div>
+                    <div class="role">Correspondante</div>
+                    <div class="bio">Correspondante d'Augusta vers 1937–1938.</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">Lolo</div>
+                    <div class="role">Amie</div>
+                    <div class="bio">Amie d'Augusta. Mentionnée dans une carte humoristique.</div>
+                </div>
+
+                <div class="person-card">
+                    <div class="name">Mme Poirier</div>
+                    <div class="role">Relation locale</div>
+                    <div class="bio">Relation locale d'Augusta.</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Collection de cartes postales Boulay. Tous droits réservés.</p>
+        <p style="margin-top: 1rem; font-size: 0.85rem;">Préservation du patrimoine familial</p>
+    </footer>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const personCards = document.querySelectorAll('.person-card');
+        const characterSections = document.querySelectorAll('.character-section');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            let visibleSections = 0;
+
+            characterSections.forEach(section => {
+                const cards = section.querySelectorAll('.person-card');
+                let visibleCards = 0;
+
+                cards.forEach(card => {
+                    const name = card.querySelector('.name').textContent.toLowerCase();
+                    const meta = card.querySelector('.meta').textContent.toLowerCase();
+                    const role = card.querySelector('.role').textContent.toLowerCase();
+
+                    if (name.includes(searchTerm) || meta.includes(searchTerm) || role.includes(searchTerm)) {
+                        card.classList.remove('hidden');
+                        visibleCards++;
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+
+                if (visibleCards > 0) {
+                    section.style.display = 'block';
+                    visibleSections++;
+                } else {
+                    section.style.display = 'none';
+                }
+            });
+
+            // Show/hide no results message
+            let noResults = document.querySelector('.no-results');
+            if (searchTerm && visibleSections === 0) {
+                if (!noResults) {
+                    noResults = document.createElement('div');
+                    noResults.className = 'no-results';
+                    noResults.textContent = 'Aucun personnage ne correspond à votre recherche.';
+                    document.querySelector('main').appendChild(noResults);
+                }
+                noResults.style.display = 'block';
+            } else if (noResults) {
+                noResults.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

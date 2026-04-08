@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biographie d'Augusta Boulay</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap');
+
+        :root {
+            --sepia: #f5f0e8;
+            --sepia-dark: #e8dfd0;
+            --ink: #2c2417;
+            --ink-light: #5a4d3a;
+            --accent: #8b4513;
+            --accent-light: #c4956a;
+            --blue-link: #4a6fa5;
+            --card-bg: #fffdf7;
+            --shadow: rgba(44, 36, 23, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans 3', 'Georgia', serif;
+            background: var(--sepia);
+            color: var(--ink);
+            line-height: 1.7;
+        }
+
+        nav {
+            background: #2c2417;
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+
+        nav a {
+            color: #e8dfd0;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #c4956a;
+        }
+
+        .header {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, var(--sepia-dark), var(--sepia));
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--ink-light);
+        }
+
+        main {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 2rem 0;
+            padding-left: 2.5rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0.75rem;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #8b4513, #c4956a, #e8dfd0);
+            border-radius: 2px;
+        }
+
+        .tl-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px var(--shadow);
+            transition: box-shadow 0.2s;
+        }
+
+        .tl-item:hover {
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .tl-item::before {
+            content: '';
+            position: absolute;
+            left: -2.05rem;
+            top: 0.4rem;
+            width: 12px;
+            height: 12px;
+            background: #8b4513;
+            border: 3px solid #f5f0e8;
+            border-radius: 50%;
+        }
+
+        .tl-period {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tl-period::before {
+            content: '⚬';
+            font-size: 0.8rem;
+        }
+
+        .tl-content {
+            color: var(--ink);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .tl-content p {
+            margin-bottom: 1rem;
+        }
+
+        .tl-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .tl-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.6rem 1.2rem;
+            background: var(--accent-light);
+            color: white;
+            text-decoration: none;
+            border-radius: 3px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .tl-link:hover {
+            background: var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            background: #2c2417;
+            color: #e8dfd0;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #c4956a;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: #e8dfd0;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .header p {
+                font-size: 0.95rem;
+            }
+
+            nav {
+                gap: 1rem;
+                padding: 0.8rem 1rem;
+            }
+
+            nav a {
+                font-size: 0.8rem;
+            }
+
+            main {
+                padding: 0 1rem;
+            }
+
+            .timeline {
+                padding-left: 2rem;
+            }
+
+            .tl-item {
+                padding: 1.2rem;
+            }
+
+            .tl-item::before {
+                left: -1.55rem;
+            }
+
+            .tl-period {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Catalogue</a>
+        <a href="biographie.html" class="active">Biographie</a>
+        <a href="personnages.html">Personnages</a>
+        <a href="arbre.html">Arbre généalogique</a>
+        <a href="galerie.html">Galerie photos</a>
+        <a href="carte.html">Carte géographique</a>
+    </nav>
+
+    <header class="header">
+        <h1>Biographie d'Augusta Boulay</h1>
+        <p>(1907–1993) — Une vie à Craon, en Mayenne</p>
+    </header>
+
+    <main>
+        <div class="timeline">
+            <div class="tl-item">
+                <div class="tl-period">1907–1914 — Enfance à Craon</div>
+                <div class="tl-content">
+                    <p>Augusta Marie Emilia Boulay naît en 1907 à Craon (Mayenne). Son père, Auguste Alexandre Camille Joseph Boulay (1878–1940), dirige les ateliers de constructions mécaniques fondés par son père François en 1869 et crée une usine électrique desservant Craon. Sa mère, Émilie Pauline Legros (1883–1925).</p>
+                    <p>Les cartes dessinent une enfance cadrée par les usages d'une petite ville : vœux échangés, visites, séjours. Adresse récurrente : route de Château-Gontier. Augusta est « Mlle A. Boulay », on lit des encouragements à « bien apprendre ». Sa sœur Émilie (« Mimi ») et Maria (Marie Guidault, 1875–1962), employée de maison très proche de la famille, complètent le tableau.</p>
+                    <a href="index.html" class="tl-link">Voir les cartes 1907–1914 →</a>
+                </div>
+            </div>
+
+            <div class="tl-item">
+                <div class="tl-period">1914–1918 — La Première Guerre mondiale</div>
+                <div class="tl-content">
+                    <p>À 7 ans, Augusta écrit à son père absent, le remercie de ses lettres, raconte ses résultats scolaires et exprime l'espoir que « la guerre finisse bientôt ». Le père Auguste est affecté à Bourges (artillerie, Camp de Tivoli, Maréchal des Logis) — il n'est PAS au front.</p>
+                    <p>Le ton est empreint de religion (prières, messe) et de l'expérience de l'absence. Maria évoque la boue, la fatigue. Vers 1916, on devine une opération et une convalescence pour Augusta.</p>
+                    <a href="index.html" class="tl-link">Voir les cartes 1914–1918 →</a>
+                </div>
+            </div>
+
+            <div class="tl-item">
+                <div class="tl-period">1920–1925 — Adolescence et formation</div>
+                <div class="tl-content">
+                    <p>L'après-guerre correspond à l'adolescence et à la formation : pensions et établissements (Laval, Angers — Institution Jeanne d'Arc, 3 rue Joubert), amitiés et correspondances de jeunes filles (Lily, Yvette, Marie-Louise, Jacqueline, Jeanne Mary), et une France de mobilités retrouvées (Paris, Versailles, Le Mans, côte Atlantique).</p>
+                    <p>La période révèle aussi une fragilité familiale majeure : le décès d'Émilie Legros en 1925, qui précipite l'entrée d'Augusta dans l'âge adulte.</p>
+                    <a href="index.html" class="tl-link">Voir les cartes 1920–1925 →</a>
+                </div>
+            </div>
+
+            <div class="tl-item">
+                <div class="tl-period">1930–1940 — Mariage et vie adulte</div>
+                <div class="tl-content">
+                    <p>Augusta devient « Madame Lemonnier » après son mariage (1931) avec Guy Michel Albert Lemonnier. Ce dernier reprend l'affaire de son beau-père. Les cartes citent les beaux-parents (Michel Lemonnier et Eulalie Décré) et confirment un ancrage à Craon (rue du Mûrier).</p>
+                    <p>Voyages : Vatican (1932), Florence (1936), Naples. Le décès du père en 1940 coïncide avec l'Occupation.</p>
+                    <a href="index.html" class="tl-link">Voir les cartes 1930–1940 →</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        Collection Augusta Boulay — <a href="index.html">Retour au catalogue</a>
+    </footer>
+</body>
+</html>

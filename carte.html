@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carte géographique — Collection Boulay</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --sepia: #f5f0e8;
+            --sepia-dark: #e8dfd0;
+            --ink: #2c2417;
+            --ink-light: #5a4d3a;
+            --accent: #8b4513;
+            --accent-light: #c4956a;
+            --blue-link: #4a6fa5;
+            --card-bg: #fffdf7;
+            --shadow: rgba(44, 36, 23, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background-color: var(--sepia);
+            color: var(--ink);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--sepia-dark);
+            box-shadow: 0 2px 8px var(--shadow);
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--ink);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-bottom: 3px solid transparent;
+            transition: border-color 0.3s, color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent-light);
+        }
+
+        nav a.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--sepia) 0%, var(--sepia-dark) 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-bottom: 2px solid var(--accent-light);
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--ink);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-family: 'Source Serif 4', serif;
+            font-size: 1.2rem;
+            color: var(--ink-light);
+            font-style: italic;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Map Section */
+        .map-section {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 12px var(--shadow);
+            margin-bottom: 3rem;
+        }
+
+        #map {
+            height: 600px;
+            border-radius: 6px;
+            border: 2px solid var(--sepia-dark);
+            overflow: hidden;
+            box-shadow: 0 4px 8px var(--shadow);
+        }
+
+        /* Leaflet Popup Styling */
+        .leaflet-popup-content-wrapper {
+            background-color: var(--card-bg) !important;
+            border: 2px solid var(--accent) !important;
+            border-radius: 6px !important;
+            box-shadow: 0 4px 12px var(--shadow) !important;
+        }
+
+        .leaflet-popup-tip {
+            background-color: var(--card-bg) !important;
+            border: 2px solid var(--accent) !important;
+        }
+
+        .leaflet-popup-content {
+            font-family: 'Source Sans 3', sans-serif !important;
+            color: var(--ink) !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            width: auto !important;
+        }
+
+        .popup-content {
+            padding: 1rem;
+        }
+
+        .popup-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .popup-content p {
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .popup-cards {
+            background-color: var(--sepia);
+            padding: 0.8rem;
+            border-radius: 4px;
+            margin-top: 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        .popup-cards strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .card-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .card-link {
+            background-color: var(--card-bg);
+            border: 1px solid var(--accent-light);
+            color: var(--blue-link);
+            padding: 0.3rem 0.6rem;
+            border-radius: 3px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .card-link:hover {
+            background-color: var(--accent-light);
+            color: var(--card-bg);
+        }
+
+        /* Statistics Section */
+        .stats-section {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 12px var(--shadow);
+            margin-bottom: 3rem;
+        }
+
+        .stats-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--sepia) 0%, var(--sepia-dark) 100%);
+            padding: 1.5rem;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-family: 'Source Serif 4', serif;
+            font-size: 1rem;
+            color: var(--ink-light);
+        }
+
+        /* Places Grid */
+        .places-section {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 12px var(--shadow);
+        }
+
+        .places-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .places-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .place-tag {
+            background: var(--card-bg);
+            border: 1px solid var(--sepia-dark);
+            border-radius: 6px;
+            padding: 0.8rem 1rem;
+            box-shadow: 0 1px 4px var(--shadow);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            text-align: center;
+        }
+
+        .place-tag:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .place-tag h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--accent);
+            margin-bottom: 0.3rem;
+        }
+
+        .place-tag p {
+            font-size: 0.85rem;
+            color: var(--ink-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .place-tag .card-count {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--sepia-dark);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+            color: var(--ink-light);
+            font-size: 0.95rem;
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            nav {
+                gap: 1rem;
+            }
+
+            nav a {
+                font-size: 0.95rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .map-section,
+            .stats-section,
+            .places-section {
+                padding: 1.5rem;
+            }
+
+            #map {
+                height: 400px;
+            }
+
+            .places-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html">Catalogue</a>
+        <a href="biographie.html">Biographie</a>
+        <a href="personnages.html">Personnages</a>
+        <a href="arbre.html">Arbre généalogique</a>
+        <a href="galerie.html">Galerie photos</a>
+        <a href="carte.html" class="active">Carte géographique</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Carte géographique</h1>
+        <p>Les lieux mentionnés dans les cartes postales (1910–1940)</p>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Map Section -->
+        <section class="map-section">
+            <div id="map"></div>
+        </section>
+
+        <!-- Statistics Section -->
+        <section class="stats-section">
+            <h2>Statistiques</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">20</div>
+                    <div class="stat-label">Lieux identifiés</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50</div>
+                    <div class="stat-label">Cartes géolocalisées<br>sur 153</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Cartes de Paris<br>(plus mentionné)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">Craon</div>
+                    <div class="stat-label">Domicile familial</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Places Grid Section -->
+        <section class="places-section">
+            <h2>Lieux géographiques</h2>
+            <div class="places-grid" id="placesGrid"></div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Collection de cartes postales Boulay. Tous droits réservés.</p>
+        <p>Projet d'archivage et de numérisation des cartes postales (1910–1940)</p>
+    </footer>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        // Location data
+        const locations = [
+            {name: "Angers", lat: 47.4667, lon: -0.5481, cards: [77,78,89,90,134], desc: "Institution Jeanne d'Arc, pensionnat d'Augusta"},
+            {name: "Bourges", lat: 47.0833, lon: 2.4, cards: [19,26,27,29], desc: "Camp de Tivoli — affectation militaire d'Auguste (14-18)"},
+            {name: "Bruxelles", lat: 50.8503, lon: 4.3517, cards: [67], desc: "Carte de voyage"},
+            {name: "Contrexéville", lat: 48.0833, lon: 5.8833, cards: [72], desc: "Station thermale"},
+            {name: "Craon", lat: 47.8467, lon: -0.9517, cards: [41,117], desc: "Domicile familial — route de Château-Gontier, ateliers mécaniques Boulay"},
+            {name: "Deauville", lat: 49.3254, lon: 0.0851, cards: [49,50], desc: "Séjour balnéaire"},
+            {name: "La Baule", lat: 47.2701, lon: -2.3913, cards: [86,87], desc: "Côte Atlantique"},
+            {name: "Laval", lat: 48.0731, lon: -0.7636, cards: [5,56,60,62,68], desc: "Pension/établissement scolaire"},
+            {name: "Le Mans", lat: 48.0061, lon: 0.1995, cards: [58,64,70], desc: "Correspondance"},
+            {name: "Lourdes", lat: 43.0912, lon: -0.0458, cards: [43,102,150], desc: "Pèlerinage"},
+            {name: "Metz", lat: 49.1199, lon: 6.1757, cards: [146], desc: "Carte de voyage"},
+            {name: "Nancy", lat: 48.6921, lon: 6.1844, cards: [80], desc: "Amie Janine"},
+            {name: "Ostende", lat: 51.2212, lon: 2.9244, cards: [73], desc: "Belgique — carte de voyage"},
+            {name: "Paris", lat: 48.8566, lon: 2.3522, cards: [30,38,52,53,63,143,144,147], desc: "Voyages et correspondance — 8 cartes"},
+            {name: "Pau", lat: 43.2965, lon: -0.3708, cards: [69], desc: "Sud-Ouest"},
+            {name: "Pornichet", lat: 47.2607, lon: -2.3447, cards: [79,88,128], desc: "Côte Atlantique — amie Janette"},
+            {name: "Rambouillet", lat: 48.6328, lon: 1.8234, cards: [85], desc: "Île-de-France"},
+            {name: "Strasbourg", lat: 48.5734, lon: 7.7521, cards: [71], desc: "Alsace"},
+            {name: "Versailles", lat: 48.8039, lon: 2.1304, cards: [46,65,145], desc: "Voyages"},
+            {name: "Vittel", lat: 48.1833, lon: 5.9833, cards: [66,142], desc: "Station thermale"}
+        ];
+
+        // Initialize map
+        const map = L.map('map').setView([47.0, 2.5], 6);
+
+        // Add tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributeurs',
+            maxZoom: 19
+        }).addTo(map);
+
+        // Store markers for reference
+        const markers = {};
+
+        // Add markers
+        locations.forEach(location => {
+            const marker = L.circleMarker([location.lat, location.lon], {
+                radius: Math.max(6, location.cards.length * 2),
+                fillColor: '#8b4513',
+                color: '#5a4d3a',
+                weight: 2,
+                fillOpacity: 0.7
+            }).addTo(map);
+
+            // Create popup content
+            const cardLinksHtml = location.cards
+                .map(cardNum => `<a href="index.html#card-${cardNum}" class="card-link">Carte ${cardNum}</a>`)
+                .join('');
+
+            const popupHtml = `
+                <div class="popup-content">
+                    <h3>${location.name}</h3>
+                    <p>${location.desc}</p>
+                    <div class="popup-cards">
+                        <strong>${location.cards.length} carte${location.cards.length > 1 ? 's' : ''}</strong>
+                        <div class="card-links">${cardLinksHtml}</div>
+                    </div>
+                </div>
+            `;
+
+            marker.bindPopup(popupHtml);
+            markers[location.name] = marker;
+        });
+
+        // Populate places grid
+        const placesGrid = document.getElementById('placesGrid');
+        locations.forEach(location => {
+            const placeTag = document.createElement('div');
+            placeTag.className = 'place-tag';
+            placeTag.innerHTML = `
+                <h3>${location.name}</h3>
+                <p>${location.desc}</p>
+                <div class="card-count">${location.cards.length}</div>
+            `;
+            placeTag.addEventListener('click', () => {
+                // Pan to location and open popup
+                map.setView([location.lat, location.lon], 8, {
+                    animate: true,
+                    duration: 0.8
+                });
+                setTimeout(() => {
+                    markers[location.name].openPopup();
+                }, 400);
+            });
+            placesGrid.appendChild(placeTag);
+        });
+    </script>
+</body>
+</html>

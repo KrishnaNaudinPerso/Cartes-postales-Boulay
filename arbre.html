@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arbre généalogique — Collection Augusta Boulay</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap');
+
+        :root {
+            --sepia: #f5f0e8;
+            --sepia-dark: #e8dfd0;
+            --ink: #2c2417;
+            --ink-light: #5a4d3a;
+            --accent: #8b4513;
+            --accent-light: #c4956a;
+            --blue-link: #4a6fa5;
+            --card-bg: #fffdf7;
+            --shadow: rgba(44, 36, 23, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans 3', 'Georgia', serif;
+            background: var(--sepia);
+            color: var(--ink);
+            line-height: 1.7;
+        }
+
+        nav {
+            background: #2c2417;
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+
+        nav a {
+            color: #e8ddf0;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: #c4956a;
+        }
+
+        nav a.active {
+            color: #c4956a;
+            border-bottom: 2px solid #c4956a;
+            padding-bottom: 0.2rem;
+        }
+
+        .header {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, var(--sepia-dark), var(--sepia));
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--ink-light);
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .note-box {
+            background: #fff9e6;
+            border-left: 4px solid var(--accent);
+            padding: 1.2rem;
+            margin: 2rem 0;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .note-box strong {
+            color: var(--accent);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--ink);
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--accent-light);
+            padding-bottom: 0.5rem;
+        }
+
+        .family-tree {
+            background: var(--card-bg);
+            border: 1px solid var(--sepia-dark);
+            border-radius: 8px;
+            padding: 2rem;
+            overflow-x: auto;
+            box-shadow: 0 2px 12px var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .tree-level {
+            margin-left: 2rem;
+            border-left: 2px solid var(--accent-light);
+            padding-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .tree-person {
+            padding: 0.6rem 0;
+            position: relative;
+            margin-bottom: 0.3rem;
+        }
+
+        .tree-person::before {
+            content: '';
+            position: absolute;
+            left: -1.5rem;
+            top: 50%;
+            width: 1.2rem;
+            height: 2px;
+            background: var(--accent-light);
+            transform: translateY(-50%);
+        }
+
+        .tree-name {
+            font-weight: 600;
+            color: var(--ink);
+            font-size: 1rem;
+        }
+
+        .tree-dates {
+            color: var(--ink-light);
+            font-size: 0.85rem;
+            margin-left: 0.3rem;
+        }
+
+        .tree-role {
+            display: block;
+            font-style: italic;
+            color: var(--accent);
+            font-size: 0.85rem;
+            margin-top: 0.2rem;
+            margin-left: 0rem;
+        }
+
+        .tree-marriage {
+            display: inline-block;
+            background: var(--sepia-dark);
+            padding: 0.15rem 0.6rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            color: var(--ink-light);
+            margin: 0 0.3rem;
+        }
+
+        .tree-children {
+            margin-left: 2rem;
+            border-left: 2px solid var(--accent-light);
+            padding-left: 1.5rem;
+            margin-top: 0.8rem;
+        }
+
+        .tree-children .tree-person {
+            padding: 0.5rem 0;
+        }
+
+        .generation-label {
+            background: var(--accent);
+            color: var(--sepia);
+            padding: 0.4rem 0.8rem;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .central-figure {
+            background: #fff4e6;
+            border-left: 4px solid var(--accent);
+            padding: 0.8rem;
+            border-radius: 4px;
+            margin-top: 0.5rem;
+        }
+
+        .central-figure .tree-name {
+            color: var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--ink-light);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--sepia-dark);
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: var(--blue-link);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                gap: 1rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            main {
+                padding: 0 1rem;
+            }
+
+            .family-tree {
+                padding: 1.5rem;
+            }
+
+            .tree-level {
+                margin-left: 1.5rem;
+                padding-left: 1rem;
+            }
+
+            .tree-children {
+                margin-left: 1.5rem;
+                padding-left: 1rem;
+            }
+
+            .tree-person::before {
+                left: -1rem;
+                width: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Catalogue</a>
+        <a href="biographie.html">Biographie</a>
+        <a href="personnages.html">Personnages</a>
+        <a href="arbre.html" class="active">Arbre généalogique</a>
+        <a href="galerie.html">Galerie photos</a>
+        <a href="carte.html">Carte géographique</a>
+    </nav>
+
+    <header class="header">
+        <h1>Arbre généalogique</h1>
+        <p>Trois générations autour d'Augusta Boulay</p>
+    </header>
+
+    <main>
+        <div class="note-box">
+            <strong>Note spéciale :</strong> <strong>Consanguinité</strong> — Auguste Boulay et Émilie Legros étaient cousins germains. Marie Désirée Boulay (1852–1933) est à la fois la grand-tante paternelle et la grand-mère maternelle d'Augusta. Cette parenté multiple est caractéristique des familles de commerçants et artisans du XIXe siècle.
+        </div>
+
+        <h2 class="section-title">Génération 1 — Grands-parents et collatéraux</h2>
+
+        <div class="family-tree">
+            <span class="generation-label">Génération 1</span>
+
+            <div class="tree-person">
+                <span class="tree-name">François Alexandre BOULAY</span>
+                <span class="tree-dates">(1869–?)</span>
+                <span class="tree-role">Fondateur des ateliers de Craon</span>
+            </div>
+
+            <div class="tree-children">
+                <div class="tree-person">
+                    <span class="tree-name">Auguste</span>
+                    <span class="tree-dates">~1878</span>
+                </div>
+                <div class="tree-person">
+                    <span class="tree-name">Marie</span>
+                    <span class="tree-dates">~1874</span>
+                </div>
+                <div class="tree-person">
+                    <span class="tree-name">Berthe</span>
+                    <span class="tree-dates">1885–?</span>
+                </div>
+                <div class="tree-person">
+                    <span class="tree-name">Aurélie</span>
+                    <span class="tree-dates">1890–?</span>
+                </div>
+                <div class="tree-person">
+                    <span class="tree-name">Fernande</span>
+                    <span class="tree-dates">1892–?</span>
+                </div>
+            </div>
+
+            <div class="tree-person" style="margin-top: 1.5rem;">
+                <span class="tree-name">Marie Désirée BOULAY</span>
+                <span class="tree-dates">1852–1933</span>
+                <span class="tree-role">Sœur de François • Grand-tante ET grand-mère d'Augusta (consanguinité)</span>
+            </div>
+
+            <div class="tree-children">
+                <div class="tree-person">
+                    <span class="tree-name">Famille LEGROS</span>
+                    <span class="tree-role">(Famille maternelle)</span>
+                </div>
+                <div class="tree-person" style="margin-left: 1rem;">
+                    <span class="tree-name">Émilie Legros</span>
+                    <span class="tree-dates">1883–1925</span>
+                </div>
+                <div class="tree-person" style="margin-left: 1rem;">
+                    <span class="tree-name">Clémence Legros</span>
+                    <span class="tree-dates">1889–?</span>
+                </div>
+                <div class="tree-person" style="margin-left: 1rem;">
+                    <span class="tree-name">Germaine Legros</span>
+                    <span class="tree-dates">?</span>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Génération 2 — Parents et leurs fratries</h2>
+
+        <div class="family-tree">
+            <span class="generation-label">Génération 2</span>
+
+            <div class="tree-person">
+                <span class="tree-name">Auguste Alexandre Camille Joseph BOULAY</span>
+                <span class="tree-dates">1878–1940</span>
+                <span class="tree-marriage">∞</span>
+                <span class="tree-name">Émilie Pauline LEGROS</span>
+                <span class="tree-dates">1883–1925</span>
+                <span class="tree-role">Cousins germains</span>
+            </div>
+
+            <div class="tree-role" style="margin-left: 0; margin-top: 0.5rem;">
+                Mécanicien/constructeur, ateliers de Craon. Affecté à Bourges 14-18.
+            </div>
+
+            <div class="tree-person" style="margin-top: 1.5rem;">
+                <span class="tree-name">Marie BOULAY</span>
+                <span class="tree-dates">~1874–1960</span>
+                <span class="tree-role">Sœur d'Auguste • Célibataire</span>
+            </div>
+
+            <div class="tree-person" style="margin-top: 0.8rem;">
+                <span class="tree-name">Berthe BOULAY</span>
+                <span class="tree-dates">1885–?</span>
+                <span class="tree-marriage">∞</span>
+                <span class="tree-name">Jules René Joseph Davoust</span>
+            </div>
+
+            <div class="tree-children">
+                <div class="tree-person">
+                    <span class="tree-name">Paul Davoust</span>
+                    <span class="tree-dates">?</span>
+                </div>
+            </div>
+
+            <div class="tree-person" style="margin-top: 0.8rem;">
+                <span class="tree-name">Aurélie BOULAY</span>
+                <span class="tree-dates">1890–?</span>
+                <span class="tree-role">Sœur cadette</span>
+            </div>
+
+            <div class="tree-person" style="margin-top: 0.8rem;">
+                <span class="tree-name">Fernande BOULAY</span>
+                <span class="tree-dates">1892–?</span>
+                <span class="tree-marriage">∞</span>
+                <span class="tree-name">Constant Goussin</span>
+            </div>
+
+            <div class="tree-children">
+                <div class="tree-person">
+                    <span class="tree-name">Albert Goussin</span>
+                    <span class="tree-dates">1913–?</span>
+                </div>
+                <div class="tree-person">
+                    <span class="tree-name">Andrée Goussin</span>
+                    <span class="tree-dates">1921–?</span>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Génération 3 — Les enfants</h2>
+
+        <div class="family-tree">
+            <span class="generation-label">Génération 3</span>
+
+            <div class="tree-person central-figure">
+                <span class="tree-name">Augusta Marie Emilia BOULAY</span>
+                <span class="tree-dates">1907–1993</span>
+                <span class="tree-marriage">∞</span>
+                <span class="tree-name">Guy Michel Albert LEMONNIER</span>
+                <span class="tree-dates">(mariage 1931)</span>
+                <span class="tree-role">Personnage central de la collection</span>
+            </div>
+
+            <div class="tree-person" style="margin-top: 1.5rem;">
+                <span class="tree-name">Émilie « Mimi » BOULAY</span>
+                <span class="tree-dates">~1910–?</span>
+                <span class="tree-marriage">∞</span>
+                <span class="tree-name">Albert [nom inconnu]</span>
+            </div>
+        </div>
+
+        <h2 class="section-title">Famille LEMONNIER — Par alliance</h2>
+
+        <div class="family-tree">
+            <span class="generation-label">Alliés</span>
+
+            <div class="tree-person">
+                <span class="tree-name">Michel LEMONNIER</span>
+                <span class="tree-marriage">∞</span>
+                <span class="tree-name">Eulalie DÉCRÉ</span>
+                <span class="tree-role">Parents de Guy</span>
+            </div>
+
+            <div class="tree-children">
+                <div class="tree-person central-figure">
+                    <span class="tree-name">Guy Michel Albert LEMONNIER</span>
+                    <span class="tree-marriage">∞</span>
+                    <span class="tree-name">Augusta Marie Emilia BOULAY</span>
+                    <span class="tree-dates">(mariage 1931)</span>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Proches et domestiques</h2>
+
+        <div class="family-tree">
+            <div class="tree-person">
+                <span class="tree-name">Maria</span>
+                <span class="tree-dates">(Marie Guidault veuve Guilloux, 1875–1962)</span>
+                <span class="tree-role">Employée de maison de la famille Boulay</span>
+            </div>
+
+            <div class="tree-person" style="margin-top: 0.8rem;">
+                <span class="tree-name">Tante Blu</span>
+                <span class="tree-role">Identité inconnue • Proche de la famille</span>
+            </div>
+        </div>
+
+        <div class="note-box" style="margin-top: 3rem; background: #f0f8ff; border-left-color: var(--blue-link);">
+            <strong>À propos de cet arbre :</strong> Cette généalogie a été reconstituée à partir des documents de la collection Augusta Boulay, incluant correspondances, faire-part, et documents d'époque. Certaines informations restent incomplètes, notamment les dates de décès et quelques identités. Les mariages multiples et les liens de consanguinité reflètent les pratiques matrimoniales des commerçants et artisans du XIXe siècle français.
+        </div>
+    </main>
+
+    <footer>
+        <p><strong>Collection Augusta Boulay</strong> — Cartes postales 1910-1940</p>
+        <p>Site développé pour préserver et partager cette collection familiale</p>
+    </footer>
+</body>
+</html>
