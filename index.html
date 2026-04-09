@@ -1231,7 +1231,7 @@ function renderCatalog() {
   grid.innerHTML = pageCards.map((c, i) => {
     const sender = c.titre || c.exp || '<em>non renseigné</em>';
     const preview = c.trans ? c.trans.substring(0, 80) + (c.trans.length > 80 ? '…' : '') : '<em>pas de transcription</em>';
-    return `<div class="cat-card" onclick="openLightbox(${start + i})">
+    return `<div class="cat-card" id="card-${c.n}" onclick="openLightbox(${start + i})">
       <div class="cat-thumb">
         <img src="${imgPath(c.n, 'verso')}" alt="Carte ${c.n}" loading="lazy" onerror="this.style.display='none'" />
         <span class="cat-num">#${c.n}</span>
@@ -1345,6 +1345,30 @@ function debounce(fn, ms) {
 
 // Init
 applyFilters();
+
+// Handle #card-N hash links from other pages
+(function() {
+  const hash = window.location.hash;
+  if (!hash || !hash.startsWith('#card-')) return;
+  const cardNum = parseInt(hash.replace('#card-', ''));
+  if (!cardNum) return;
+  // Find the card index in the current filtered list
+  const idx = filteredCards.findIndex(c => c.n === cardNum);
+  if (idx === -1) return;
+  // Navigate to the right page
+  currentPage = Math.floor(idx / ITEMS_PER_PAGE) + 1;
+  renderCatalog();
+  // Scroll to the card after render
+  setTimeout(function() {
+    const el = document.getElementById('card-' + cardNum);
+    if (el) {
+      el.scrollIntoView({behavior: 'smooth', block: 'center'});
+      el.style.outline = '3px solid #8b4513';
+      el.style.outlineOffset = '4px';
+      setTimeout(function() { el.style.outline = ''; el.style.outlineOffset = ''; }, 3000);
+    }
+  }, 200);
+})();
 </script>
 
 </body>
